@@ -1,98 +1,225 @@
-
-
-body{
-    // background-color: red;
+//==================Header
+.Head {
+    display: flex;
+    justify-content: space-around;
 }
 
-.glogo{
- width:10rem
+.glogo {
+    width: 10rem;
 }
 
-.ADD-TASK i{ 
-    font-size: 35px;
-   
-}
 
-.test{
+.Search-task {
     margin-top: 30px;
-    width: 30vw !important;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;}
-
-.Text-control{
-    width: 100%;
+    width: 22vw !important;
+    height: 4.8vh !important;
+    border: none;
+    outline: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 17px;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
-.card{
+//==================INPUT PART
+.collapse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ADD-TASK {
+    width: 40%;
+}
+
+.taskUpperHeader {
+    width: 35%;
+    border: none;
+    outline: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+
+
+//==================CARD
+.card {
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
 
+.Card-Text {
+    width: 100%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.Task-Indax {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 300;
+    color: rgb(92, 92, 92);
+}
+
+
+
+
+// Add task
+// .searchBox{
+//     border: none;
+//     outline: none;
+//     color: #ABABAB;
+//     font-family: 'inter';
+//     border-radius: 10px;
+//     box-shadow: 1px 1px 2px rgb(153, 153, 153);
+// }
+
+
+.taskBody {
+    width: 35%;
+}
+
+.itemAddBtn {
+    border: none;
+    outline: none;
+}
+
+
+
+// card
+
+.Edit {
+    color: green;
+    font-size: 22px;
+    padding: 10px;
+}
+
+.Edit:hover {
+    color: rgb(164, 206, 164);
+}
+
+.Delete {
+    color: red;
+    font-size: 22px;
+}
+
+.Delete:hover {
+    color: rgb(245, 156, 156);
+}
 
 @media screen and (max-width: 1400px) {
- 
-    .glogo{
-        width:8rem
-       }
+    .glogo {
+        width: 8rem;
+    }
 
-    .test{
+    .Search-task {
+        width: 40vw !important;
+    }
+
+    .test {
         margin-top: 38px !important;
         width: 40vw !important;
     }
 }
+
 @media screen and (max-width: 1200px) {
- 
-    .glogo{
-        width:8rem
-       }
+    .glogo {
+        width: 8rem;
+    }
 
-    .test{
+    .Search-task {
+        width: 40vw !important;
+    }
+
+    .test {
         margin-top: 38px !important;
         width: 40vw !important;
     }
 }
+
 @media screen and (max-width: 760px) {
- 
-    .glogo{
-        width:8rem
-       }
+    .glogo {
+        width: 8rem;
+    }
 
-    .test{
+
+    .test {
         margin-top: 38px !important;
         width: 40vw !important;
     }
-}
-@media screen and (max-width: 520px) {
- 
-    .glogo{
-        width:7rem
-       }
 
-    .test{
+    .taskUpperHeader {
+        width: 100% !important;
+    }
+
+    .taskBody {
+        width: 90vw !important;
+    }
+
+}
+
+@media screen and (max-width: 520px) {
+    .glogo {
+        width: 7rem;
+    }
+
+    .test {
         margin-top: 38px !important;
         width: 50vw !important;
     }
+
+    .taskUpperHeader {
+        width: 100vw !important;
+    }
+
+    .taskBody {
+        width: 90vw !important;
+    }
+
 }
+
 @media screen and (max-width: 425px) {
 
-    .test{
+    .test {
         margin-top: 38px !important;
-        width:100% !important;
+        width: 100% !important;
     }
-}
-@media screen and (max-width: 479px) {
-    .glogo{
-        width:5rem
-       }
 
-    .test{
+    .taskUpperHeader {
+        width: 100vw !important;
+    }
+
+    .taskBody {
+        width: 90vw !important;
+    }
+
+}
+
+@media screen and (max-width: 479px) {
+
+    .glogo {
+        width: 5rem;
+    }
+
+    .Search-task {
+        width: 50vw !important;
+    }
+
+    .test {
         margin-top: 38px !important;
-        width:40vw !important;
-        height:30px !important;
+        width: 40vw !important;
+        height: 30px !important;
         // background-color: green;
     }
 
-    
-.ADD-TASK i{ 
-    font-size: 30px;
-   
-}
+    .ADD-TASK i {
+        font-size: 30px;
+    }
+
+    .taskUpperHeader {
+        width: 100vw !important;
+    }
+
+    .taskBody {
+        width: 90vw !important;
+    }
+
 }
