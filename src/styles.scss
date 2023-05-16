@@ -1,4 +1,4 @@
-
+@import 'ngx-toastr/toastr';
 ::-webkit-scrollbar{
     width: 0%;
 }
@@ -44,11 +44,11 @@
     width: 35%;
     border: none;
     outline: none;
+    color:rgb(77, 71, 71);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 
 
 //==================CARD
@@ -66,10 +66,6 @@
     font-weight: 300;
     color: rgb(92, 92, 92);
 }
-
-
-
-
 // Add task
 // .searchBox{
 //     border: none;
@@ -79,8 +75,6 @@
 //     border-radius: 10px;
 //     box-shadow: 1px 1px 2px rgb(153, 153, 153);
 // }
-
-
 .taskBody {
     width: 35%;
 }
@@ -90,10 +84,10 @@
     outline: none;
 }
 
-
-
-// card
-
+.Date{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
 .Edit {
     color: green;
     font-size: 22px;
@@ -113,6 +107,11 @@
     color: rgb(245, 156, 156);
 }
 
+
+
+
+
+//================== 1400
 @media screen and (max-width: 1400px) {
     .glogo {
         width: 8rem;
@@ -128,6 +127,10 @@
     }
 }
 
+
+
+
+//================== 1200
 @media screen and (max-width: 1200px) {
     .glogo {
         width: 8rem;
@@ -143,6 +146,9 @@
     }
 }
 
+
+
+//================== 760
 @media screen and (max-width: 760px) {
     .glogo {
         width: 8rem;
@@ -164,6 +170,11 @@
 
 }
 
+
+
+
+
+//================== 520
 @media screen and (max-width: 520px) {
     .glogo {
         width: 7rem;
@@ -184,6 +195,9 @@
 
 }
 
+
+
+//================== 425
 @media screen and (max-width: 425px) {
 
     .test {
@@ -201,6 +215,9 @@
 
 }
 
+
+
+//================== 479
 @media screen and (max-width: 479px) {
 
     .glogo {

@@ -29,29 +29,25 @@
                 <div class="collapse taskBody " id="collapseExample">
                     <div class="card card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item "><input type="text" class="form-control mb-1 "
-                                    id="floatingInput" placeholder="Title"></li>
                             <li class="list-group-item ">
-                                <ul class="list-group list-group-flush overflow-auto" style="height: 100px;">
+                                <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
+                                    (keyup.enter)="AddData()" [(ngModel)]="Task.TaskTitle">
+
+                            </li>
+                            <li class="list-group-item">
+                                <ul class="list-group list-group-flush overflow-auto"
+                                    *ngFor="let innerd of Task.TaskItem; let i = index;">
                                     <li class="list-group-item d-flex">
-                                        <span><i class="bi bi-plus-lg"></i></span>
-                                        <!-- <input type="checkbox"> -->
-                                        <input type="text" class=" ps-2 itemAddBtn" placeholder="List item">
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <!-- <span><i class="bi bi-plus-lg"></i></span>  -->
-                                        <input type="checkbox">
-                                        <input type="text" class=" ps-2 itemAddBtn" placeholder="List item">
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <span><i class="bi bi-plus-lg"></i></span>
-                                        <!-- <input type="checkbox"> -->
-                                        <input type="text" class=" ps-2 itemAddBtn" placeholder="List item">
+                                        <i class="bi bi-x fs-3" (click)="removeBlankitem(i)"></i>
+                                        <input type="checkbox" [(ngModel)]="innerd.Checkbox">
+
+                                        <input type="text" class=" ps-2 itemAddBtn" placeholder="List item"
+                                            [(ngModel)]="innerd.TaskName" (keyup.enter)="addBlankItem()">
                                     </li>
                                 </ul>
                             </li>
-
                             <li class="list-group-item"></li>
+                            <i (click)="AddData()" class="bi bi-arrow-right-square-fill fs-2"></i>
                         </ul>
                     </div>
                 </div>
@@ -68,289 +64,36 @@
 <section class="container overflow-auto  mt-5" style="height: 480px;">
     <div class="row">
 
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3" style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-1</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
+        <ng-container *ngFor="let item of allList">
+
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
+                <div class="card border-light mb-3" style="width: 18rem;">
+                    <div class="card-header d-flex  justify-content-between">
+                        <div class="Task-Indax">{{item.TaskTitle}}</div>
+                        <div class="leftCard-Icon">
+                            <i class="bi bi-pencil-square Edit"></i>
+                            <i class="bi bi-trash-fill Delete"></i>
+                        </div>
                     </div>
+                    <div class="p-4 overflow-auto" style="height: 100px;">
+                        <ng-container *ngFor="let innerItem of item.TaskItem">
+
+                            <div class="form-check ">
+                                <input class="form-check-input" disabled [checked]="innerItem.Checkbox" type="checkbox">
+                                <span class="form-check Card-Text">
+                                    <del *ngIf="innerItem.Checkbox">{{innerItem.TaskName}}</del>
+                                    <span *ngIf="!innerItem.Checkbox">{{innerItem.TaskName}}</span>
+
+                                </span>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                    <div class="footer mt-5">Jan-2-2023</div>
                 </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
             </div>
-        </div>
+        </ng-container>
 
-
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3" style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-2</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-
-
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3" style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-3</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-
-
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3 " style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-4</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-
-
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3 " style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-5</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-
-
-
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3" style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-6</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
-            <div class="card border-light mb-3" style="width: 18rem;">
-                <div class="card-header d-flex  justify-content-between">
-                    <div class="Task-Indax">TASK-6</div>
-                    <div class="leftCard-Icon">
-                        <i class="bi bi-pencil-square Edit"></i>
-                        <i class="bi bi-trash-fill Delete"></i>
-                    </div>
-                </div>
-                <div class="p-4 overflow-auto" style="height: 100px;">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Text-control" for="flexCheckDefault">
-                            Create website design
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Work
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Food
-                        </label>
-                    </div>
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label Card-Text" for="flexCheckDefault">
-                            Parsonal
-                        </label>
-                    </div>
-                </div>
-                <div class="footer mt-5">Jan-2-2023</div>
-            </div>
-        </div>
-   
-   
-  
-     
-   
-       
 
 
     </div>
