@@ -10,16 +10,19 @@ export class CrudsService {
 
   constructor(private http:HttpClient) { }
 
+  //=================GET DATA METHOD
   getItem(){
     return this.http.get<Array<TodosApp>>(this.JsonUrl);
   }
 
+  //=================POST DATA METHOD
   AddItem(Data:TodosApp){
     return this.http.post(this.JsonUrl,Data);
   }
 }
 
 
+  //=================CLASS 
 export class TodosApp{
   id?:number;
   TaskTitle?:string;

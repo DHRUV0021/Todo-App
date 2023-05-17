@@ -1,3 +1,4 @@
+<!-- =======================================================HEADER======================================================= -->
 <nav class="navbar navbar-expand-lg navbar-light  navabar-menu ">
     <div class="container  Head">
         <div class="">
@@ -8,14 +9,10 @@
                 <input class="form-control Search-task" type="search" placeholder="Search" aria-label="Search">
             </a>
         </div>
-        <!-- <div class="ADD-TASK">
-            <i class="bi bi-plus-square-fill"></i>
-        </div> -->
     </div>
 </nav>
 
-<!-- Input Part -->
-
+<!-- =======================================================INPUT PART======================================================= -->
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -32,7 +29,6 @@
                             <li class="list-group-item ">
                                 <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
                                     (keyup.enter)="AddData()" [(ngModel)]="Task.TaskTitle">
-
                             </li>
                             <li class="list-group-item">
                                 <ul class="list-group list-group-flush overflow-auto"
@@ -56,16 +52,11 @@
     </div>
 </div>
 
-
-
-
-
 <!-- =======================================================CARD======================================================= -->
 <section class="container overflow-auto  mt-5" style="height: 480px;">
     <div class="row">
 
         <ng-container *ngFor="let item of allList">
-
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
                 <div class="card border-light mb-3" style="width: 18rem;">
                     <div class="card-header d-flex  justify-content-between">
@@ -77,24 +68,19 @@
                     </div>
                     <div class="p-4 overflow-auto" style="height: 100px;">
                         <ng-container *ngFor="let innerItem of item.TaskItem">
-
                             <div class="form-check ">
                                 <input class="form-check-input" disabled [checked]="innerItem.Checkbox" type="checkbox">
                                 <span class="form-check Card-Text">
                                     <del *ngIf="innerItem.Checkbox">{{innerItem.TaskName}}</del>
                                     <span *ngIf="!innerItem.Checkbox">{{innerItem.TaskName}}</span>
-
                                 </span>
                             </div>
                         </ng-container>
-
                     </div>
                     <div class="footer mt-5">Jan-2-2023</div>
                 </div>
             </div>
         </ng-container>
-
-
 
     </div>
 </section>
