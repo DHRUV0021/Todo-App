@@ -9,6 +9,9 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 })
 
 export class TODOSAPPComponent {
+  deleteItem(mockRespnoses: { date: string; TaskItem: { Checkbox: boolean; TaskName: string; }[]; TaskTitle: string; id: number; }[]) {
+    throw new Error('Method not implemented.');
+  }
 
   Task?: TodosApp;
   allList: Array<TodosApp> = new Array<TodosApp>();

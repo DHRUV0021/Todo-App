@@ -4,9 +4,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
+
 describe('CrudsService', () => {
   let crudService: CrudsService;
   let mockHttpClient;
+
 
   beforeEach(() => {
     crudService = new CrudsService(mockHttpClient);
@@ -16,7 +18,7 @@ describe('CrudsService', () => {
         RouterTestingModule,
       ],
       providers: [
-        HttpClient
+        HttpClient,
       ],
     });
     crudService = TestBed.inject(CrudsService);
@@ -26,7 +28,7 @@ describe('CrudsService', () => {
     expect(crudService).toBeTruthy();
   });
 
-  //------------------TAST CASE WRITE
+  //------------------TAST CASE WRITE STRAT
   it("should display task Title", () => {
     let mockRespnose = [
       {
@@ -42,9 +44,11 @@ describe('CrudsService', () => {
       }
     ];
     let response;
-    spyOn(crudService, 'getItem').and.returnValue(of(mockRespnose));
+    spyOn(crudService,'getItem').and.returnValue(of(mockRespnose));
     crudService.getItem().subscribe(res => { response = res })
     expect(response).toEqual(mockRespnose);
   });
+    //------------------TAST CASE WRITE END
+
 
 });
