@@ -11,8 +11,11 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 })
 export class TODOSAPPComponent {
 
+  Date : Date = new Date();
   Task?: TodosApp;
   allList: Array<TodosApp> = new Array<TodosApp>();
+  updateAddBtn: boolean = false;
+  searchValue: String;
 
   constructor(private Data: CrudsService, private toastr: ToastrService) { }
 
@@ -23,7 +26,7 @@ export class TODOSAPPComponent {
     this.getData();
   }
 
-  
+
   //DYNAMIC ADD ROW
   addBlankItem() {
     this.Task.TaskItem.push(new TaskIteams());
@@ -52,11 +55,13 @@ export class TODOSAPPComponent {
 
   //=================ADD DATA METHOD
   AddData() {
-    if (this.Task) {
+    if (this.Task.TaskTitle) {
       this.Data.AddItem(this.Task).subscribe({
         next: (res) => {
           console.log(res);
           this.getData();
+          this.Task = new TodosApp;
+          this.addBlankItem();
         },
         error: (err) => {
           console.log(err);
@@ -71,5 +76,64 @@ export class TODOSAPPComponent {
     }
   }
 
+  //=================EDIT DATA METHOD
+  fillData(Data: TodosApp) {
+    this.Task = Data;
+    this.updateAddBtn = true;
+  }
+
+  editData() {
+    this.Data.editItem(this.Task).subscribe({
+      next: (res) => {
+        this.Task = new TodosApp;
+        this.updateAddBtn = false;
+        this.addBlankItem();
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log("EDIT DATA");
+      }
+    })
+  }
+
+  //=================DELETE DATA METHOD
+  deleteData(Data: TodosApp) {
+    this.Data.deleteItem(Data).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.getData();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log("Data delete");
+      }
+    })
+  }
+
+  //================= SEARCH DATA METHOD
+  typeSearchData() {
+    if (this.searchValue) {
+      let searchEmploye = new Array<TodosApp>();
+      if (this.allList.length > 0) {
+        for (let emp of this.allList) {
+          if (JSON.stringify(emp).toLowerCase().indexOf(this.searchValue.toLowerCase()) > 0) {
+            searchEmploye.push(emp)
+          }
+        }
+        this.allList = searchEmploye;
+      }
+      else {
+        this.getData();
+      }
+    }
+    else {
+      this.getData();
+    }
+  }
 
 } 

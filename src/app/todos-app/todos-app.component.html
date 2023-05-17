@@ -6,7 +6,8 @@
         </div>
         <div class="">
             <a class="navbar-brand " href="#">
-                <input class="form-control Search-task" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control Search-task" (keyup)="typeSearchData()" [(ngModel)]="searchValue"
+                    type="search" placeholder="Search" aria-label="Search">
             </a>
         </div>
     </div>
@@ -27,8 +28,8 @@
                     <div class="card card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item ">
-                                <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
-                                    (keyup.enter)="AddData()" [(ngModel)]="Task.TaskTitle">
+                                <input type="text"  class="form-control mb-1 " id="floatingInput" placeholder="Title"
+                                   [(ngModel)]="Task.TaskTitle">
                             </li>
                             <li class="list-group-item">
                                 <ul class="list-group list-group-flush overflow-auto"
@@ -42,8 +43,10 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="list-group-item"></li>
-                            <i (click)="AddData()" class="bi bi-arrow-right-square-fill fs-2"></i>
+                            <li class="list-group-item" (click)="updateAddBtn === false ? AddData() : editData()">
+                                <i *ngIf="!updateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
+                                <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2"></i>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -62,8 +65,8 @@
                     <div class="card-header d-flex  justify-content-between">
                         <div class="Task-Indax">{{item.TaskTitle}}</div>
                         <div class="leftCard-Icon">
-                            <i class="bi bi-pencil-square Edit"></i>
-                            <i class="bi bi-trash-fill Delete"></i>
+                            <i class="bi bi-pencil-square Edit" (click)="fillData(item)" ></i>
+                            <i class="bi bi-trash-fill Delete" (click)="deleteData(item)"></i>
                         </div>
                     </div>
                     <div class="p-4 overflow-auto" style="height: 100px;">
@@ -77,7 +80,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div class="footer mt-5">Jan-2-2023</div>
+                    <div class="footer mt-5">{{Date.toDateString()}}</div>
                 </div>
             </div>
         </ng-container>

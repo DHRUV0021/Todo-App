@@ -2,17 +2,25 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { TODOSAPPComponent } from './todos-app/todos-app.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         AppComponent,
         TODOSAPPComponent
       ],
+      providers: [
+        HttpClient,
+        ToastrService
+      ]
     }).compileComponents();
   });
 
