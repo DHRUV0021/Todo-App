@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AppModule } from '../app.module';
 import { ToastrService } from 'ngx-toastr';
 import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 
