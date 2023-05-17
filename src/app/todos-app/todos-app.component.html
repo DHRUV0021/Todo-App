@@ -19,7 +19,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-center taskAddBtnHeader">
                 <a class="form-control taskUpperHeader" data-bs-toggle="collapse" href="#collapseExample"
-                    aria-controls="collapseExample" style="text-decoration: none;">
+                    aria-controls="collapseExample" style="text-decoration: none; " (click)="editclear()">
                     Task A Note ...
                 </a>
             </div>
@@ -28,8 +28,8 @@
                     <div class="card card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item ">
-                                <input type="text"  class="form-control mb-1 " id="floatingInput" placeholder="Title"
-                                   [(ngModel)]="Task.TaskTitle">
+                                <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
+                                    [(ngModel)]="Task.TaskTitle">
                             </li>
                             <li class="list-group-item">
                                 <ul class="list-group list-group-flush overflow-auto"
@@ -45,7 +45,7 @@
                             </li>
                             <li class="list-group-item" (click)="updateAddBtn === false ? AddData() : editData()">
                                 <i *ngIf="!updateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
-                                <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2"></i>
+                                <i *ngIf="updateAddBtn" class="bi bi-plus-circle-fill fs-2"></i>
                             </li>
                         </ul>
                     </div>
@@ -65,7 +65,8 @@
                     <div class="card-header d-flex  justify-content-between">
                         <div class="Task-Indax">{{item.TaskTitle}}</div>
                         <div class="leftCard-Icon">
-                            <i class="bi bi-pencil-square Edit" (click)="fillData(item)" ></i>
+                            <i class="bi bi-pencil-square Edit" data-bs-toggle="collapse" href="#collapseExample"
+                                (click)="fillData(item)"></i>
                             <i class="bi bi-trash-fill Delete" (click)="deleteData(item)"></i>
                         </div>
                     </div>
@@ -80,7 +81,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div class="footer mt-5">{{Date.toDateString()}}</div>
+                    <div class="footer mt-5">{{item.date | date}}</div>
                 </div>
             </div>
         </ng-container>

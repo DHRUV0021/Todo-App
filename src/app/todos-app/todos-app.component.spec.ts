@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TODOSAPPComponent } from './todos-app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +24,6 @@ describe('TODOSAPPComponent', () => {
       ]
     })
     .compileComponents();
-
     fixture = TestBed.createComponent(TODOSAPPComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -34,4 +32,5 @@ describe('TODOSAPPComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

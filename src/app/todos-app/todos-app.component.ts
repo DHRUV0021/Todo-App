@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 
-
 @Component({
   selector: 'app-todos-app',
   templateUrl: './todos-app.component.html',
-  styleUrls: ['./todos-app.component.scss']
+  styleUrls: ['./todos-app.component.scss'],
 })
+
 export class TODOSAPPComponent {
 
-  Date : Date = new Date();
   Task?: TodosApp;
   allList: Array<TodosApp> = new Array<TodosApp>();
   updateAddBtn: boolean = false;
+  clearBtn: boolean = false;
   searchValue: String;
 
   constructor(private Data: CrudsService, private toastr: ToastrService) { }
@@ -71,7 +71,7 @@ export class TODOSAPPComponent {
       })
     }
     else {
-      console.log("plese ENter your task");
+      this.toastr.warning('plese enter your task');
     }
   }
 
@@ -109,7 +109,7 @@ export class TODOSAPPComponent {
         console.log(err);
       },
       complete: () => {
-        console.log("Data delete");
+        this.toastr.success('Task Deleted Syccessfully');
       }
     })
   }
@@ -133,6 +133,14 @@ export class TODOSAPPComponent {
     else {
       this.getData();
     }
+  }
+
+  //================= EDIT CLEAR FILD DATA METHOD
+  editclear() {
+    this.Task = new TodosApp;
+    this.clearBtn = true;
+    this.updateAddBtn = false;
+    this.addBlankItem();
   }
 
 } 
