@@ -10,29 +10,39 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 
 export class TODOSAPPComponent {
   Task?: TodosApp;
+  newItem?: TodosApp;
+  newItemAdd: TaskIteams;
   allList: Array<TodosApp> = new Array<TodosApp>();
   updateAddBtn: boolean = false;
   clearBtn: boolean = false;
+  addNewListItemBtn: boolean = false;
   searchValue: String;
+  addBtntodo = false;
+  oneAdd = false;
+  // card new data ADD
+  showInputField: boolean = false;
 
   constructor(private Data: CrudsService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.Task = new TodosApp;
-    this.Task.TaskItem = new Array<TaskIteams>();
+    this.Task.tasks = new Array<TaskIteams>();
+    this.newItem = new TodosApp;
+    this.newItem.tasks = new Array<TaskIteams>();
+    this.newItemAdd = new TaskIteams;
     this.addBlankItem();
+    this.addNewItemBlankItem();
     this.getData();
   }
 
-
   //DYNAMIC ADD ROW
   addBlankItem() {
-    this.Task.TaskItem.push(new TaskIteams());
+    this.Task.tasks.push(new TaskIteams());
   }
 
   removeBlankitem(i) {
-    if (this.Task.TaskItem.length != 1) {
-      this.Task.TaskItem.splice(i, 1);
+    if (this.Task.tasks.length != 1) {
+      this.Task.tasks.splice(i, 1);
     }
   }
 
@@ -51,9 +61,10 @@ export class TODOSAPPComponent {
     })
   }
 
+
   //=================ADD DATA METHOD
   AddData() {
-    if (this.Task.TaskTitle) {
+    if (this.Task.name) {
       this.Data.AddItem(this.Task).subscribe({
         next: (res) => {
           console.log(res);
@@ -74,6 +85,34 @@ export class TODOSAPPComponent {
     }
   }
 
+  //=================ADD DATA METHOD API
+
+  addNewItemBlankItem() {
+    this.newItem.tasks.push(new TaskIteams());
+  }
+
+  addNewItemFill(data) {
+    this.addNewListItemBtn = true;
+    this.Task = data;
+  }
+
+  addFinalyItemData(id) {
+    let TodoId = id
+    this.newItemAdd.todoId = id;
+    let data = this.newItemAdd
+    this.addNewListItemBtn = false;
+    this.Data.addInnerListData(TodoId, data).subscribe({
+      next: (res) => {
+        console.log(res);
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+
   //=================EDIT DATA METHOD
   fillData(Data: TodosApp) {
     this.Task = Data;
@@ -83,9 +122,10 @@ export class TODOSAPPComponent {
   editData() {
     this.Data.editItem(this.Task).subscribe({
       next: (res) => {
+        this.editInnerlist(this.Task.id);
+        this.addBlankItem();
         this.Task = new TodosApp;
         this.updateAddBtn = false;
-        this.addBlankItem();
         console.log(res);
       },
       error: (err) => {
@@ -96,6 +136,28 @@ export class TODOSAPPComponent {
       }
     })
   }
+
+  //=================EDIT DATA METHOD API
+  editInnerlist(TodoId) {
+    this.Task.tasks.forEach(element => {
+      this.Data.editInnerListData(TodoId, element).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.updateAddBtn = false;
+          this.Task = new TodosApp;
+          this.getData();
+          this.addBlankItem();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          console.log("edit task item");
+        }
+      });
+    });
+  }
+
 
   //=================DELETE DATA METHOD
   deleteData(Data: TodosApp) {
@@ -112,6 +174,23 @@ export class TODOSAPPComponent {
       }
     })
   }
+
+  //=================DELETE DATA METHOD API
+  deleteInnerList(TodoId, body) {
+    this.Data.deleteInnerListData(TodoId, body).subscribe({
+      next: (res) => {
+        this.getData();
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log("delete new list Item");
+      }
+    })
+  }
+
 
   //================= SEARCH DATA METHOD
   typeSearchData() {
@@ -134,12 +213,20 @@ export class TODOSAPPComponent {
     }
   }
 
+
   //================= EDIT CLEAR FILD DATA METHOD
   editclear() {
     this.Task = new TodosApp;
     this.clearBtn = true;
     this.updateAddBtn = false;
+    this.addNewListItemBtn = false;
     this.addBlankItem();
   }
 
+  // card new data ADD
+  toggleInputField(item) {
+    if (!this.showInputField) {
+      item.isInput = true;
+    }
+  }
 } 

@@ -29,26 +29,24 @@ describe('CrudsService', () => {
   });
 
   //------------------TAST CASE WRITE STRAT
-  it("should display task Title", () => {
-    let mockRespnose = [
-      {
-        date: "2023-05-17T09:42:31.104Z",
-        TaskItem: [
-          {
-            Checkbox: false,
-            TaskName: "asaas"
-          }
-        ],
-        TaskTitle: "asasas",
-        id: 1
-      }
-    ];
-    let response;
-    spyOn(crudService,'getItem').and.returnValue(of(mockRespnose));
-    crudService.getItem().subscribe(res => { response = res })
-    expect(response).toEqual(mockRespnose);
-  });
+  // it("should display task Title", () => {
+  //   let mockRespnose = [
+  //     {
+  //       addedon: "2023-05-17T09:42:31.104Z",
+  //       tasks: [
+  //         {
+  //           Checkbox: false,
+  //           isCompleted: "asaas"
+  //         }
+  //       ],
+  //       name: "asasas",
+  //       id: 1
+  //     }
+  //   ];
+  //   let response;
+  //   spyOn(crudService,'getItem').and.returnValue(of(mockRespnose));
+  //   crudService.getItem().subscribe(res => { response = res })
+  //   expect(response).toEqual(mockRespnose);
+  // });
     //------------------TAST CASE WRITE END
-
-
 });

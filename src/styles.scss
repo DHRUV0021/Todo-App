@@ -1,5 +1,6 @@
 @import 'ngx-toastr/toastr';
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
     width: 0%;
 }
 
@@ -44,7 +45,7 @@
     width: 35%;
     border: none;
     outline: none;
-    color:rgb(77, 71, 71);
+    color: rgb(77, 71, 71);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -66,6 +67,7 @@
     font-weight: 300;
     color: rgb(92, 92, 92);
 }
+
 // Add task
 // .searchBox{
 //     border: none;
@@ -84,10 +86,11 @@
     outline: none;
 }
 
-.Date{
-    font-family:Arial, Helvetica, sans-serif;
+.Date {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
 }
+
 .Edit {
     color: green;
     font-size: 22px;
