@@ -10,7 +10,6 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 
 export class TODOSAPPComponent {
   Task?: TodosApp;
-  newItem?: TodosApp;
   newItemAdd: TaskIteams;
   allList: Array<TodosApp> = new Array<TodosApp>();
   updateAddBtn: boolean = false;
@@ -27,11 +26,8 @@ export class TODOSAPPComponent {
   ngOnInit(): void {
     this.Task = new TodosApp;
     this.Task.tasks = new Array<TaskIteams>();
-    this.newItem = new TodosApp;
-    this.newItem.tasks = new Array<TaskIteams>();
     this.newItemAdd = new TaskIteams;
     this.addBlankItem();
-    this.addNewItemBlankItem();
     this.getData();
   }
 
@@ -87,9 +83,6 @@ export class TODOSAPPComponent {
 
   //=================ADD DATA METHOD API
 
-  addNewItemBlankItem() {
-    this.newItem.tasks.push(new TaskIteams());
-  }
 
   addNewItemFill(data) {
     this.addNewListItemBtn = true;
@@ -97,14 +90,15 @@ export class TODOSAPPComponent {
   }
 
   addFinalyItemData(id) {
-    let TodoId = id
+
     this.newItemAdd.todoId = id;
-    let data = this.newItemAdd
+    let data = this.newItemAdd;
     this.addNewListItemBtn = false;
-    this.Data.addInnerListData(TodoId, data).subscribe({
+    
+    this.Data.addInnerListData(id, data).subscribe({
       next: (res) => {
         console.log(res);
-
+        this.getData();
       },
       error: (err) => {
         console.log(err);
@@ -165,13 +159,11 @@ export class TODOSAPPComponent {
       next: (res) => {
         console.log(res);
         this.getData();
+        this.toastr.success('Task Deleted Syccessfully');
       },
       error: (err) => {
         console.log(err);
       },
-      complete: () => {
-        this.toastr.success('Task Deleted Syccessfully');
-      }
     })
   }
 
@@ -179,8 +171,8 @@ export class TODOSAPPComponent {
   deleteInnerList(TodoId, body) {
     this.Data.deleteInnerListData(TodoId, body).subscribe({
       next: (res) => {
-        this.getData();
         console.log(res);
+        this.getData();
       },
       error: (err) => {
         console.log(err);

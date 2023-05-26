@@ -75,7 +75,7 @@
                         <span *ngIf="item.isInput">
                             <input type="checkbox" [(ngModel)]="newItemAdd.isCompleted">
                             <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="newItemAdd.name"
-                                placeholder=" New List item" (keyup)="addFinalyItemData(item.id)">
+                                placeholder=" New List item" (keyup.enter)="addFinalyItemData(item.id)">
                         </span>
                     </div>
                       <!-- card Add Button End-->
