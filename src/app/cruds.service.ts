@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class CrudsService {
 
   //JsonUrl = "http://localhost:3000/Todos";//JSON URL
-  JsonUrl = "http://10.10.5.107:16100/todo";//Server URL
+  JsonUrl = "http://10.10.5.127:16100/todo";//Server URL
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class CrudsService {
   }
   //=================POST DATA METHOD API
   addInnerListData(TodoId, body) {
-    return this.http.post(`http://10.10.5.107:16100/todo/${TodoId}/task`, body);
+    return this.http.post(`http://10.10.5.127:16100/todo/${TodoId}/task`, body);
   }
 
 
@@ -33,7 +33,7 @@ export class CrudsService {
   }
   //=================EDIT DATA METHOD API
   editInnerListData(TodoId, body) {
-    return this.http.put(`http://10.10.5.107:16100/todo/${TodoId}/task/${body.id}`, body)
+    return this.http.put(`http://10.10.5.127:16100/todo/${TodoId}/task/${body.id}`, body)
   }
 
 
@@ -43,7 +43,7 @@ export class CrudsService {
   }
   //=================DELETE DATA METHOD API
   deleteInnerListData(TodoId, body: TodosApp) {
-    return this.http.delete(`http://10.10.5.107:16100/todo/${TodoId}/task/${body.id}`)
+    return this.http.delete(`http://10.10.5.127:16100/todo/${TodoId}/task/${body.id}`)
   }
 }
 

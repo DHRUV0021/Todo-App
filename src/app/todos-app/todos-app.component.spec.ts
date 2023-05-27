@@ -13,23 +13,51 @@ describe('TODOSAPPComponent', () => {
   let fixture: ComponentFixture<TODOSAPPComponent>;
   // let crudsService;
   // let ToastrService;
+  // let Datas;
 
 
   beforeEach(async () => {
+    // Datas = [
+    //   {
+    //     tasks: [
+    //       {
+    //         id: 2,
+    //         todoId: 50,
+    //         isCompleted: false,
+    //         name: "Create CRUD"
+    //       },
+    //       {
+    //         id: 2,
+    //         todoId: 50,
+    //         isCompleted: true,
+    //         name: "UI To-do List App"
+    //       }
+    //     ],
+    //     addedon: "2023-05-16T04:45:50.470Z",
+    //     name: "Work",
+    //     id: 2
+    //   }
+    // ];
+
+    //=======================DELETE TAST CASE
+    // crudsService = jasmine.createSpyObj(['getItem', 'AddItem', 'editItem', 'deleteItem']);
+    // component = new TODOSAPPComponent(crudsService, ToastrService);
+
+
     await TestBed.configureTestingModule({
-      declarations: [ TODOSAPPComponent ],
-      imports:[
+      declarations: [TODOSAPPComponent],
+      imports: [
         HttpClientModule,
         FormsModule,
         ToastrModule.forRoot(),
         RouterTestingModule
       ],
-      providers:[
+      providers: [
         HttpClient,
-       
+
       ]
     })
-    .compileComponents();
+      .compileComponents();
     fixture = TestBed.createComponent(TODOSAPPComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -40,31 +68,13 @@ describe('TODOSAPPComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-
-//=======================DELETE TAST CASE
-  // crudsService = jasmine.createSpyObj(['getItem' , 'AddItem' , 'editItem' , 'deleteItem']);
-  // component =  new TODOSAPPComponent(crudsService ,ToastrService);
-   
-
   // it("should display remove data", () => {
-  //   let mockRespnoses = [
-  //     {
-  //       date: "2023-05-17T09:42:31.104Z",
-  //       TaskItem: [
-  //         {
-  //           Checkbox: false,
-  //           TaskName: "asaas"
-  //         }
-  //       ],
-  //       TaskTitle: "asasas",
-  //       id: 1
-  //     }
-  //   ];
-  //     crudsService.deleteItem.and.returnValue(of(true));
-  //     component.allList = mockRespnoses;
-  //     component.deleteItem(mockRespnoses);
-  //     expect(component.allList.length).toBe(1);
+  //   crudsService.deleteData.and.returnValue(of(true));
+  //   component.getData = Datas;
+  //   component.deleteData(Datas);
+  //   expect(component.getData.length).toBe(2);
   // });
+
+
 
 });

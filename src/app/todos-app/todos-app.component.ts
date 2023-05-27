@@ -9,6 +9,7 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 })
 
 export class TODOSAPPComponent {
+
   Task?: TodosApp;
   newItemAdd: TaskIteams;
   allList: Array<TodosApp> = new Array<TodosApp>();
