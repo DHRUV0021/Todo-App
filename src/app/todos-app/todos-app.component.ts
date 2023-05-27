@@ -9,7 +9,6 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
 })
 
 export class TODOSAPPComponent {
-
   Task?: TodosApp;
   newItemAdd: TaskIteams;
   allList: Array<TodosApp> = new Array<TodosApp>();
@@ -19,7 +18,7 @@ export class TODOSAPPComponent {
   searchValue: String;
   addBtntodo = false;
   oneAdd = false;
-  // card new data ADD
+  // INPUT SHOW AND HIDE
   showInputField: boolean = false;
 
   constructor(private Data: CrudsService, private toastr: ToastrService) { }
@@ -29,22 +28,29 @@ export class TODOSAPPComponent {
     this.Task.tasks = new Array<TaskIteams>();
     this.newItemAdd = new TaskIteams;
     this.addBlankItem();
-    this.getData();
+    this.getTask();
   }
 
-  //DYNAMIC ADD ROW
+  /**
+   *DYNAMIC ADD ROW IN TASKNOTE
+   */
   addBlankItem() {
     this.Task.tasks.push(new TaskIteams());
   }
 
+  /**
+  *BY DEFAULT ONE LIST ITEM ADD INPUT
+  */
   removeBlankitem(i) {
     if (this.Task.tasks.length != 1) {
       this.Task.tasks.splice(i, 1);
     }
   }
 
-  //=================GET DATA METHOD
-  getData() {
+  /**
+   * GET TASK MEHOD
+   */
+  getTask() {
     this.Data.getItem().subscribe({
       next: (res) => {
         this.allList = res;
@@ -58,14 +64,15 @@ export class TODOSAPPComponent {
     })
   }
 
-
-  //=================ADD DATA METHOD
-  AddData() {
+  /**
+   *ADD TODOS DATA METHOD
+   */
+  addTask() {
     if (this.Task.name) {
       this.Data.AddItem(this.Task).subscribe({
         next: (res) => {
           console.log(res);
-          this.getData();
+          this.getTask();
           this.Task = new TodosApp;
           this.addBlankItem();
           this.toastr.success('Added New Task SuccessFully');
@@ -83,22 +90,22 @@ export class TODOSAPPComponent {
     }
   }
 
-  //=================ADD DATA METHOD API
-
-
   addNewItemFill(data) {
     this.addNewListItemBtn = true;
     this.Task = data;
   }
 
+  /**
+   * ONLY TASK ITEM ADD METHOD
+   */
   addFinalyItemData(id) {
     this.newItemAdd.todoId = id;
     let data = this.newItemAdd;
     this.addNewListItemBtn = false;
-    
+
     this.Data.addInnerListData(id, data).subscribe({
       next: (res) => {
-        this.getData();
+        this.getTask();
         this.newItemAdd = new TaskIteams;
         console.log(res);
       },
@@ -108,14 +115,18 @@ export class TODOSAPPComponent {
     })
   }
 
-
-  //=================EDIT DATA METHOD
+  /**
+   * FILL INPUT DATA METHOD
+   */
   fillData(Data: TodosApp) {
     this.Task = Data;
     this.updateAddBtn = true;
   }
 
-  editData() {
+  /**
+   * EIDT TODOS DATA METHOD
+   */
+  editTask() {
     this.Data.editItem(this.Task).subscribe({
       next: (res) => {
         this.editInnerlist(this.Task.id);
@@ -131,7 +142,9 @@ export class TODOSAPPComponent {
     })
   }
 
-  //=================EDIT DATA METHOD API
+  /**
+   * EIDT TODOS ITEM DATA METHOD
+   */
   editInnerlist(TodoId) {
     this.Task.tasks.forEach(element => {
       this.Data.editInnerListData(TodoId, element).subscribe({
@@ -139,7 +152,7 @@ export class TODOSAPPComponent {
           console.log(res);
           this.updateAddBtn = false;
           this.Task = new TodosApp;
-          this.getData();
+          this.getTask();
           this.addBlankItem();
           // this.toastr.success('Edit New Item Success');
         },
@@ -150,13 +163,15 @@ export class TODOSAPPComponent {
     });
   }
 
-
-  //=================DELETE DATA METHOD
-  deleteData(Data: TodosApp) {
+  /**
+   * TODOS DELETE METHOD
+   * 
+   */
+  deleteTask(Data: TodosApp) {
     this.Data.deleteItem(Data).subscribe({
       next: (res) => {
         console.log(res);
-        this.getData();
+        this.getTask();
         this.toastr.success('Task Deleted Syccessfully');
       },
       error: (err) => {
@@ -165,12 +180,15 @@ export class TODOSAPPComponent {
     })
   }
 
-  //=================DELETE DATA METHOD API
+  /**
+   * TODOS ITEM DELETE METHOD
+   * 
+   */
   deleteInnerList(TodoId, body) {
     this.Data.deleteInnerListData(TodoId, body).subscribe({
       next: (res) => {
         console.log(res);
-        this.getData();
+        this.getTask();
         this.toastr.success('Item Deleted Syccessfully');
       },
       error: (err) => {
@@ -182,8 +200,9 @@ export class TODOSAPPComponent {
     })
   }
 
-
-  //================= SEARCH DATA METHOD
+  /**
+   * TODO & TASK SEARCH DATA METHOD
+   */
   typeSearchData() {
     if (this.searchValue) {
       let searchEmploye = new Array<TodosApp>();
@@ -196,17 +215,18 @@ export class TODOSAPPComponent {
         this.allList = searchEmploye;
       }
       else {
-        this.getData();
+        this.getTask();
       }
     }
     else {
-      this.getData();
+      this.getTask();
     }
   }
 
-
-  //================= EDIT CLEAR FILD DATA METHOD
-  editclear() {
+  /**
+   * EDIT FILD RESET METHOD
+   */
+  reseteditData() {
     this.Task = new TodosApp;
     this.clearBtn = true;
     this.updateAddBtn = false;

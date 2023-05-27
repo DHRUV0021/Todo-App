@@ -19,7 +19,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-center taskAddBtnHeader">
                 <a class="form-control taskUpperHeader" data-bs-toggle="collapse" href="#collapseExample"
-                    aria-controls="collapseExample" style="text-decoration: none; " (click)="editclear()">
+                    aria-controls="collapseExample" style="text-decoration: none; " (click)="reseteditData()">
                     Task A Note ...
                 </a>
             </div>
@@ -43,7 +43,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="list-group-item" (click)="updateAddBtn === false ? AddData() : editData()">
+                            <li class="list-group-item" (click)="updateAddBtn === false ? addTask() : editTask()">
                                 <i *ngIf="!updateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
                                 <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2"></i>
                             </li>
@@ -66,7 +66,7 @@
                         <div class="leftCard-Icon">
                             <i class="bi bi-pencil-square Edit" data-bs-toggle="collapse" href="#collapseExample"
                                 (click)="fillData(item)"></i>
-                            <i class="bi bi-trash-fill Delete" (click)="deleteData(item)"></i>
+                            <i class="bi bi-trash-fill Delete" (click)="deleteTask(item)"></i>
                         </div>
                     </div>
                     <!-- card Add Button -->
