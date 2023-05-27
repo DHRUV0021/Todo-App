@@ -67,6 +67,7 @@ export class TODOSAPPComponent {
           this.getData();
           this.Task = new TodosApp;
           this.addBlankItem();
+          this.toastr.success('Added New Task SuccessFully');
         },
         error: (err) => {
           console.log(err);
@@ -90,15 +91,15 @@ export class TODOSAPPComponent {
   }
 
   addFinalyItemData(id) {
-
     this.newItemAdd.todoId = id;
     let data = this.newItemAdd;
     this.addNewListItemBtn = false;
     
     this.Data.addInnerListData(id, data).subscribe({
       next: (res) => {
-        console.log(res);
         this.getData();
+        this.newItemAdd = new TaskIteams;
+        console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -121,12 +122,10 @@ export class TODOSAPPComponent {
         this.Task = new TodosApp;
         this.updateAddBtn = false;
         console.log(res);
+        this.toastr.success('To-do Update Successfully...');
       },
       error: (err) => {
         console.log(err);
-      },
-      complete: () => {
-        console.log("EDIT DATA");
       }
     })
   }
@@ -141,12 +140,10 @@ export class TODOSAPPComponent {
           this.Task = new TodosApp;
           this.getData();
           this.addBlankItem();
+          // this.toastr.success('Edit New Item Success');
         },
         error: (err) => {
           console.log(err);
-        },
-        complete: () => {
-          console.log("edit task item");
         }
       });
     });
@@ -173,6 +170,7 @@ export class TODOSAPPComponent {
       next: (res) => {
         console.log(res);
         this.getData();
+        this.toastr.success('Item Deleted Syccessfully');
       },
       error: (err) => {
         console.log(err);
