@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
+import { CrudsService, Tasks, Todos } from '../Service/cruds.service';
 
 @Component({
   selector: 'app-todos-app',
@@ -8,236 +8,279 @@ import { CrudsService, TaskIteams, TodosApp } from '../cruds.service';
   styleUrls: ['./todos-app.component.scss'],
 })
 
-export class TODOSAPPComponent {
-  Task?: TodosApp;
-  newItemAdd: TaskIteams;
-  allList: Array<TodosApp> = new Array<TodosApp>();
-  updateAddBtn: boolean = false;
-  clearBtn: boolean = false;
-  addNewListItemBtn: boolean = false;
-  searchValue: String;
-  addBtntodo = false;
-  oneAdd = false;
-  // INPUT SHOW AND HIDE
-  showInputField: boolean = false;
+export class TodosComponent {
 
-  constructor(private Data: CrudsService, private toastr: ToastrService) { }
+  // Data Binding
+  todoDetails: Todos;
+  taskDetails: Tasks;
+
+  // Data Store
+  allTodos: Array<Todos> = new Array<Todos>();
+
+  // Toggle Btn
+  updateAddBtn: boolean = false;
+  resetBtn: boolean = false;
+  taskEditBtnToggle: boolean = false;
+
+  searchValue: string;
+
+  constructor(private _crud: CrudsService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.Task = new TodosApp;
-    this.Task.tasks = new Array<TaskIteams>();
-    this.newItemAdd = new TaskIteams;
+
+    this.todoDetails = new Todos;
+    this.taskDetails = new Tasks;
+
+    this.todoDetails.tasks = new Array<Tasks>();
+
     this.addBlankItem();
-    this.getTask();
+    this.getTodos();
   }
 
   /**
-   *DYNAMIC ADD ROW IN TASKNOTE
+   *This method is used dynamic add row 
    */
   addBlankItem() {
-    this.Task.tasks.push(new TaskIteams());
+    this.todoDetails.tasks.push(new Tasks());
   }
 
   /**
-  *BY DEFAULT ONE LIST ITEM ADD INPUT
-  */
+   * This method is used add list item by default one input box 
+   * @param i 
+   */
   removeBlankitem(i) {
-    if (this.Task.tasks.length != 1) {
-      this.Task.tasks.splice(i, 1);
+    if (this.todoDetails.tasks.length != 1) {
+      this.todoDetails.tasks.splice(i, 1);
     }
   }
 
   /**
-   * GET TASK MEHOD
+   * This method is used get todo
    */
-  getTask() {
-    this.Data.getItem().subscribe({
+  getTodos() {
+    this._crud.getTodos().subscribe({
       next: (res) => {
-        this.allList = res;
+        this.allTodos = res;
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log("data get success");
+        this._toastr.error('get task errror', err);
       }
     })
   }
 
   /**
-   *ADD TODOS DATA METHOD
+   *This method is used add todos 
    */
-  addTask() {
-    if (this.Task.name) {
-      this.Data.AddItem(this.Task).subscribe({
+  addTodo() {
+    if (this.todoDetails.name) {
+      this._crud.addTodo(this.todoDetails).subscribe({
         next: (res) => {
-          console.log(res);
-          this.getTask();
-          this.Task = new TodosApp;
+          this.todoDetails = new Todos;
+
+          this.getTodos();
           this.addBlankItem();
-          this.toastr.success('Added New Task SuccessFully');
+
+          this._toastr.success('Added New Task SuccessFully...');
         },
         error: (err) => {
-          console.log(err);
+          this._toastr.error(err);
         },
         complete: () => {
-          console.log("success full");
         }
       })
     }
     else {
-      this.toastr.warning('plese enter your task');
+      this._toastr.warning('plese enter your task');
     }
   }
 
-  addNewItemFill(data) {
-    this.addNewListItemBtn = true;
-    this.Task = data;
-  }
-
   /**
-   * ONLY TASK ITEM ADD METHOD
+   * This method is used  task add
+   * @param todoId 
    */
-  addFinalyItemData(id) {
-    this.newItemAdd.todoId = id;
-    let data = this.newItemAdd;
-    this.addNewListItemBtn = false;
+  addTask(todoId) {
+    this.taskDetails.todoId = todoId;
 
-    this.Data.addInnerListData(id, data).subscribe({
+    this._crud.addTask(todoId, this.taskDetails).subscribe({
       next: (res) => {
-        this.getTask();
-        this.newItemAdd = new TaskIteams;
-        console.log(res);
+        this.taskDetails = new Tasks;
+        this.getTodos();
       },
       error: (err) => {
-        console.log(err);
+        this._toastr.error(err);
       }
     })
   }
 
   /**
-   * FILL INPUT DATA METHOD
+   * This method is used todo Fill  
+   * @param todo 
    */
-  fillData(Data: TodosApp) {
-    this.Task = Data;
+  fillData(todo: Todos) {
+    this.todoDetails = todo;
     this.updateAddBtn = true;
   }
 
   /**
-   * EIDT TODOS DATA METHOD
+   * This method is used edit todo 
    */
-  editTask() {
-    this.Data.editItem(this.Task).subscribe({
+  editTodo() {
+    this._crud.editTodo(this.todoDetails).subscribe({
       next: (res) => {
-        this.editInnerlist(this.Task.id);
+        this.editTask(this.todoDetails.id);
         this.addBlankItem();
-        this.Task = new TodosApp;
+        this.todoDetails = new Todos;
         this.updateAddBtn = false;
-        console.log(res);
-        this.toastr.success('To-do Update Successfully...');
+        this._toastr.success('Todo Update Successfully...');
       },
       error: (err) => {
-        console.log(err);
+        this._toastr.error(err);
       }
     })
   }
 
   /**
-   * EIDT TODOS ITEM DATA METHOD
+   * This method is used edit todo task 
+   * @param todoId 
    */
-  editInnerlist(TodoId) {
-    this.Task.tasks.forEach(element => {
-      this.Data.editInnerListData(TodoId, element).subscribe({
+  editTask(todoId) {
+    this.todoDetails.tasks.forEach(task => {
+      this._crud.editTask(todoId, task).subscribe({
         next: (res) => {
-          console.log(res);
           this.updateAddBtn = false;
-          this.Task = new TodosApp;
-          this.getTask();
+          this.todoDetails = new Todos;
+          this.getTodos();
           this.addBlankItem();
-          // this.toastr.success('Edit New Item Success');
+          this._toastr.success('Edit New Item Successfully...');
         },
         error: (err) => {
-          console.log(err);
+          this._toastr.error(err);
         }
       });
     });
   }
 
   /**
-   * TODOS DELETE METHOD
-   * 
+   * This method is used todo delete
+   * @param todo 
    */
-  deleteTask(Data: TodosApp) {
-    this.Data.deleteItem(Data).subscribe({
+  deleteTodo(todo: Todos) {
+    this._crud.deleteTodo(todo).subscribe({
       next: (res) => {
-        console.log(res);
-        this.getTask();
-        this.toastr.success('Task Deleted Syccessfully');
+        this.getTodos();
+        this._toastr.success('Task Deleted Successfully...!');
       },
       error: (err) => {
-        console.log(err);
+        this._toastr.error(err);
       },
     })
   }
 
   /**
-   * TODOS ITEM DELETE METHOD
-   * 
+   * This method is used todo task delete
+   * @param todoId 
+   * @param task 
    */
-  deleteInnerList(TodoId, body) {
-    this.Data.deleteInnerListData(TodoId, body).subscribe({
+  deleteTask(todoId, task) {
+    this._crud.deleteTask(todoId, task).subscribe({
       next: (res) => {
-        console.log(res);
-        this.getTask();
-        this.toastr.success('Item Deleted Syccessfully');
+        this.getTodos();
+        this._toastr.success('Item Deleted successfully...');
       },
       error: (err) => {
-        console.log(err);
+        this._toastr.error(err);
       },
       complete: () => {
-        console.log("delete new list Item");
       }
     })
   }
 
   /**
-   * TODO & TASK SEARCH DATA METHOD
+   *This method is used todo & task search  
    */
   typeSearchData() {
     if (this.searchValue) {
-      let searchEmploye = new Array<TodosApp>();
-      if (this.allList.length > 0) {
-        for (let emp of this.allList) {
-          if (JSON.stringify(emp).toLowerCase().indexOf(this.searchValue.toLowerCase()) > 0) {
-            searchEmploye.push(emp)
+      let tempTodos = new Array<Todos>();
+      if (this.allTodos.length > 0) {
+        for (let todo of this.allTodos) {
+          if (JSON.stringify(todo).toLowerCase().indexOf(this.searchValue.toLowerCase()) > 0) {
+            tempTodos.push(todo)
           }
         }
-        this.allList = searchEmploye;
+        this.allTodos = tempTodos;
       }
       else {
-        this.getTask();
+        this.getTodos();
       }
     }
     else {
-      this.getTask();
+      this.getTodos();
     }
   }
 
   /**
-   * EDIT FILD RESET METHOD
+   *This Method Is Used reset data 
    */
   reseteditData() {
-    this.Task = new TodosApp;
-    this.clearBtn = true;
+    this.todoDetails = new Todos;
+    this.resetBtn = true;
     this.updateAddBtn = false;
-    this.addNewListItemBtn = false;
     this.addBlankItem();
   }
 
-  // card new data ADD
-  toggleInputField(item) {
-    if (!this.showInputField) {
-      item.isInput = true;
+  /**
+   * This method is used new singal task 
+   * @param todo 
+   */
+  singleTaskAddToggle(todo) {
+    if (todo.isInput) {
+      todo.isInput = false;
+      this.taskDetails = new Tasks;
+      this.taskEditBtnToggle = true;
+
+    }
+    else {
+      todo.isInput = true;
+      this.taskEditBtnToggle = true;
     }
   }
-} 
+
+
+  /**
+   *  This method is used  task fill task 
+   * @param todo 
+   * @param task 
+   */
+  fillSingleTask(todo, task) {
+    this.taskDetails = task;
+    if (todo.isInput) {
+      todo.isInput = false;
+      this.taskEditBtnToggle = true;
+    }
+    else {
+      todo.isInput = true;
+      this.taskEditBtnToggle = false;
+    }
+  }
+/**
+ * This method is used  singal edit task 
+ * @param todoId 
+ */
+  singalEditTask(todoId) {
+    this.taskDetails.todoId = todoId;
+    this._crud.editTask(todoId,this.taskDetails).subscribe({
+      next: (res) => {
+        this.taskDetails = new Tasks;
+        this.taskEditBtnToggle = true;
+      },
+      error:(err)=>{
+        this._toastr.error(err);
+      }
+    })
+  }
+
+
+
+
+
+}

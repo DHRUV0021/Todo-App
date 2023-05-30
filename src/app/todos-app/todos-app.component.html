@@ -23,29 +23,29 @@
                     Task A Note ...
                 </a>
             </div>
-            <section *ngIf="!addNewListItemBtn" class="d-flex justify-content-center">
+            <section class="d-flex justify-content-center">
                 <div class="collapse taskBody " id="collapseExample">
                     <div class="card card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item ">
                                 <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
-                                    [(ngModel)]="Task.name">
+                                    [(ngModel)]="todoDetails.name">
                             </li>
                             <li class="list-group-item">
                                 <ul class="list-group list-group-flush overflow-auto"
-                                    *ngFor="let innerd of Task.tasks; let i = index;">
+                                    *ngFor="let taskItem of todoDetails.tasks; let i = index;">
                                     <li class="list-group-item d-flex">
                                         <i class="bi bi-x fs-3" (click)="removeBlankitem(i)"></i>
-                                        <input type="checkbox" [(ngModel)]="innerd.isCompleted">
+                                        <input type="checkbox" [(ngModel)]="taskItem.isCompleted">
 
                                         <input type="text" class=" ps-2 itemAddBtn" placeholder="List item"
-                                            [(ngModel)]="innerd.name" (keyup.enter)="addBlankItem()">
+                                            [(ngModel)]="taskItem.name" (keyup.enter)="addBlankItem()">
                                     </li>
                                 </ul>
                             </li>
-                            <li class="list-group-item" (click)="updateAddBtn === false ? addTask() : editTask()">
+                            <li class="list-group-item" (click)="updateAddBtn === false ? addTodo() : editTodo()" >
                                 <i *ngIf="!updateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
-                                <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2"></i>
+                                <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2" ></i>
                             </li>
                         </ul>
                     </div>
@@ -58,42 +58,51 @@
 <!-- =======================================================CARD======================================================= -->
 <section class="container overflow-auto  mt-5" style="height: 480px;">
     <div class="row">
-        <ng-container *ngFor="let item of allList">
+        <ng-container *ngFor="let todo of allTodos">
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
                 <div class="card border-light mb-3" style="width: 18rem;">
                     <div class="card-header d-flex  justify-content-between">
-                        <div class="Task-Indax">{{item.name}}</div>
+                        <div class="Task-Indax fs-4">{{todo.name}}</div>
                         <div class="leftCard-Icon">
                             <i class="bi bi-pencil-square Edit" data-bs-toggle="collapse" href="#collapseExample"
-                                (click)="fillData(item)"></i>
-                            <i class="bi bi-trash-fill Delete" (click)="deleteTask(item)"></i>
+                                (click)="fillData(todo)"></i>
+                            <i class="bi bi-trash-fill Delete" (click)="deleteTodo(todo)"></i>
                         </div>
                     </div>
-                    <!-- card Add Button -->
+                    <!-- Card New Item Add Section Start-->
                     <div>
-                        <i class="bi bi-plus-lg m-1" (click)="toggleInputField(item)"></i>
-                        <span *ngIf="item.isInput">
-                            <input type="checkbox" [(ngModel)]="newItemAdd.isCompleted">
-                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="newItemAdd.name"
-                                placeholder=" New List item" (keyup.enter)="addFinalyItemData(item.id)">
+                        <i class="bi bi-plus-lg m-1" (click)="singleTaskAddToggle(todo)"></i>
+                        <span *ngIf="todo.isInput">
+                            <input type="checkbox" [(ngModel)]="taskDetails.isCompleted">
+                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
+                                placeholder=" New List item" *ngIf="taskEditBtnToggle" (keyup.enter)="addTask(todo.id)">
+                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
+                                placeholder=" New List item" *ngIf="!taskEditBtnToggle" (keyup.enter)="singalEditTask(todo.id)">
                         </span>
                     </div>
-                      <!-- card Add Button End-->
+                    <!--Card New Item Add Section End-->
                     <div class="p-4 overflow-auto" style="height: 100px;">
-                        <ng-container *ngFor="let innerItem of item.tasks">
+                        <ng-container *ngFor="let task of todo.tasks">
                             <div class="form-check d-flex justify-content-between">
-                                <i class="bi bi-trash-fill cardDelete me-1"
-                                    (click)="deleteInnerList(item.id,innerItem)"></i>
-                                <input class="form-check-input ms-1" disabled [checked]="innerItem.isCompleted"
+
+                                
+                                <input class="form-check-input" disabled [checked]="task.isCompleted"
                                     type="checkbox">
-                                <span class="form-check Card-Text">
-                                    <del *ngIf="innerItem.isCompleted">{{innerItem.name}}</del>
-                                    <span *ngIf="!innerItem.isCompleted">{{innerItem.name}}</span>
+
+                                <span class="form-check Card-Text fs-5">
+                                    <del *ngIf="task.isCompleted">{{task.name}}</del>
+                                    <span *ngIf="!task.isCompleted">{{task.name}}</span>
                                 </span>
+    
+                                <i class="bi bi-pencil me-2 " (click)="fillSingleTask(todo,task)"></i> 
+
+                                <i class="bi bi-trash-fill cardDelete me-1 "
+                                    (click)="deleteTask(todo.id,task)"></i>
+
                             </div>
                         </ng-container>
                     </div>
-                    <div class="footer mt-5">{{item.addedon | date}}</div>
+                    <div class="footer mt-5">{{todo.addedon | date}}</div>
                 </div>
             </div>
         </ng-container>
