@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CrudsService, Tasks, Todos } from '../Service/cruds.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-todos-app',
@@ -24,7 +25,9 @@ export class TodosComponent {
 
   searchValue: string;
 
-  constructor(private _crud: CrudsService, private _toastr: ToastrService) { }
+  constructor(private _crud:CrudsService, private _toastr: ToastrService) { }
+
+  isLoading: Subject<boolean> = this._crud.isLoading;
 
   ngOnInit(): void {
 
@@ -58,12 +61,17 @@ export class TodosComponent {
    * This method is used get todo
    */
   getTodos() {
+    this._crud.loaderShow();
     this._crud.getTodos().subscribe({
       next: (res) => {
         this.allTodos = res;
       },
       error: (err) => {
-        this._toastr.error('get task errror', err);
+        this._toastr.error(err);
+        this._crud.loaderShow();
+      },
+      complete: () => {
+        this._crud.loaderHide();
       }
     })
   }
@@ -72,25 +80,26 @@ export class TodosComponent {
    *This method is used add todos 
    */
   addTodo() {
+    this._crud.loaderShow();
     if (this.todoDetails.name) {
       this._crud.addTodo(this.todoDetails).subscribe({
         next: (res) => {
           this.todoDetails = new Todos;
-
           this.getTodos();
           this.addBlankItem();
-
-          this._toastr.success('Added New Task SuccessFully...');
+          this._toastr.success('Added New Todo SuccessFully...');
         },
         error: (err) => {
           this._toastr.error(err);
+          this._crud.loaderShow();
         },
         complete: () => {
+          this._crud.loaderHide();
         }
       })
     }
     else {
-      this._toastr.warning('plese enter your task');
+      this._toastr.warning('plese enter your Todo');
     }
   }
 
@@ -99,6 +108,7 @@ export class TodosComponent {
    * @param todoId 
    */
   addTask(todoId) {
+    this._crud.loaderShow();
     this.taskDetails.todoId = todoId;
 
     this._crud.addTask(todoId, this.taskDetails).subscribe({
@@ -108,6 +118,10 @@ export class TodosComponent {
       },
       error: (err) => {
         this._toastr.error(err);
+        this._crud.loaderShow();
+      },
+      complete: () => {
+        this._crud.loaderHide();
       }
     })
   }
@@ -125,6 +139,7 @@ export class TodosComponent {
    * This method is used edit todo 
    */
   editTodo() {
+    this._crud.loaderShow();
     this._crud.editTodo(this.todoDetails).subscribe({
       next: (res) => {
         this.editTask(this.todoDetails.id);
@@ -135,6 +150,10 @@ export class TodosComponent {
       },
       error: (err) => {
         this._toastr.error(err);
+        this._crud.loaderShow();
+      },
+      complete: () => {
+        this._crud.loaderHide();
       }
     })
   }
@@ -144,6 +163,7 @@ export class TodosComponent {
    * @param todoId 
    */
   editTask(todoId) {
+    this._crud.loaderShow();
     this.todoDetails.tasks.forEach(task => {
       this._crud.editTask(todoId, task).subscribe({
         next: (res) => {
@@ -151,10 +171,14 @@ export class TodosComponent {
           this.todoDetails = new Todos;
           this.getTodos();
           this.addBlankItem();
-          this._toastr.success('Edit New Item Successfully...');
+          this._toastr.success(' Task Update Successfully...');
         },
         error: (err) => {
           this._toastr.error(err);
+          this._crud.loaderShow();
+        },
+        complete: () => {
+          this._crud.loaderHide();
         }
       });
     });
@@ -164,15 +188,20 @@ export class TodosComponent {
    * This method is used todo delete
    * @param todo 
    */
-  deleteTodo(todo: Todos) {
+  deleteTodo(todo:Todos) {
+    this._crud.loaderShow();
     this._crud.deleteTodo(todo).subscribe({
       next: (res) => {
         this.getTodos();
-        this._toastr.success('Task Deleted Successfully...!');
+        this._toastr.success('Todo Deleted Successfully...!');
       },
       error: (err) => {
         this._toastr.error(err);
+        this._crud.loaderShow();
       },
+      complete: () => {
+        this._crud.loaderHide();
+      }
     })
   }
 
@@ -182,15 +211,18 @@ export class TodosComponent {
    * @param task 
    */
   deleteTask(todoId, task) {
+    this._crud.loaderShow();
     this._crud.deleteTask(todoId, task).subscribe({
       next: (res) => {
         this.getTodos();
-        this._toastr.success('Item Deleted successfully...');
+        this._toastr.success('Task Deleted successfully...');
       },
       error: (err) => {
         this._toastr.error(err);
+        this._crud.loaderShow();
       },
       complete: () => {
+        this._crud.loaderHide();
       }
     })
   }
@@ -262,18 +294,18 @@ export class TodosComponent {
       this.taskEditBtnToggle = false;
     }
   }
-/**
- * This method is used  singal edit task 
- * @param todoId 
- */
+  /**
+   * This method is used  singal edit task 
+   * @param todoId 
+   */
   singalEditTask(todoId) {
     this.taskDetails.todoId = todoId;
-    this._crud.editTask(todoId,this.taskDetails).subscribe({
+    this._crud.editTask(todoId, this.taskDetails).subscribe({
       next: (res) => {
         this.taskDetails = new Tasks;
         this.taskEditBtnToggle = true;
       },
-      error:(err)=>{
+      error: (err) => {
         this._toastr.error(err);
       }
     })
