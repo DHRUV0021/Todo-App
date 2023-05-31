@@ -1,31 +1,34 @@
+<!-- =======================================================LOADER======================================================= -->
 <div *ngIf="isLoading | async" class="overlay">
     <mat-progress-bar mode="indeterminate" class="spinner" color="accent"></mat-progress-bar>
-  </div>
-  
+</div>
 
-<!-- =======================================================HEADER======================================================= -->
-<nav class="navbar navbar-expand-lg navbar-light  navabar-menu ">
-    <div class="container  Head">
-        <div class="">
-            <img src="../../assets/gurukul logo.png" alt="" class="glogo">
-        </div>
-        <div class="">
-            <a class="navbar-brand " href="#">
-                <input class="form-control Search-task" (keyup)="typeSearchData()" [(ngModel)]="searchValue"
-                    type="search" placeholder="Search" aria-label="Search">
-            </a>
-        </div>
+
+
+<!-- =======================================================HEADER SEARCH BOX======================================================= -->
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Todo</span>
+    <span class="example-spacer"></span>
+
+    <div class="search-box">
+        <button class="btn-search"> <i class="bi bi-search" style="color: black;"></i></button>
+        <input type="text" class="input-search" style="color: rgb(255, 255, 255);" placeholder="Type to Search..."
+            (keyup)="typeSearchData()" [(ngModel)]="searchValue">
     </div>
-</nav>
+</mat-toolbar>
 
-<!-- =======================================================INPUT PART======================================================= -->
-<div class="container">
+<!-- =======================================================INPUT SECTION======================================================= -->
+<div class="container mt-5">
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-center taskAddBtnHeader">
                 <a class="form-control taskUpperHeader" data-bs-toggle="collapse" href="#collapseExample"
-                    aria-controls="collapseExample" style="text-decoration: none; " (click)="reseteditData()">
-                    Task A Note ...
+                    aria-controls="collapseExample" style="text-decoration: none; padding:8px; "
+                    (click)="reseteditData()">
+                    Add Todo...
                 </a>
             </div>
             <section class="d-flex justify-content-center">
@@ -33,24 +36,12 @@
                     <div class="card card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item ">
-                                <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Title"
+                                <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Todo"
                                     [(ngModel)]="todoDetails.name">
                             </li>
-                            <li class="list-group-item">
-                                <ul class="list-group list-group-flush overflow-auto"
-                                    *ngFor="let taskItem of todoDetails.tasks; let i = index;">
-                                    <li class="list-group-item d-flex">
-                                        <i class="bi bi-x fs-3" (click)="removeBlankitem(i)"></i>
-                                        <input type="checkbox" [(ngModel)]="taskItem.isCompleted">
-
-                                        <input type="text" class=" ps-2 itemAddBtn" placeholder="List item"
-                                            [(ngModel)]="taskItem.name" (keyup.enter)="addBlankItem()">
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item" (click)="updateAddBtn === false ? addTodo() : editTodo()" >
-                                <i *ngIf="!updateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
-                                <i *ngIf="updateAddBtn" class="bi bi-pencil-square fs-2" ></i>
+                            <li class="list-group-item" (click)="isUpdateAddBtn === false ? addTodo() : editTodo()">
+                                <i *ngIf="!isUpdateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
+                                <i *ngIf="isUpdateAddBtn" class="bi bi-pencil-square fs-2"></i>
                             </li>
                         </ul>
                     </div>
@@ -60,54 +51,62 @@
     </div>
 </div>
 
-<!-- =======================================================CARD======================================================= -->
+<!-- =======================================================CARD SECTION======================================================= -->
 <section class="container overflow-auto  mt-5" style="height: 480px;">
     <div class="row">
         <ng-container *ngFor="let todo of allTodos">
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6 col-md-6 col-12  d-flex justify-content-center ">
                 <div class="card border-light mb-3" style="width: 18rem;">
                     <div class="card-header d-flex  justify-content-between">
-                        <div class="Task-Indax fs-4">{{todo.name}}</div>
-                        <div class="leftCard-Icon">
-                            <i class="bi bi-pencil-square Edit" data-bs-toggle="collapse" href="#collapseExample"
-                                (click)="fillData(todo)"></i>
-                            <i class="bi bi-trash-fill Delete" (click)="deleteTodo(todo)"></i>
+                        <div class="Task-Indax fs-5 mt-1">{{todo.name}}</div>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <div class="d-flex">
+                                    <div>
+                                        <i class="bi bi-pencil-square Edit" data-bs-toggle="collapse"
+                                            href="#collapseExample" (click)="fillData(todo)"></i>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-trash-fill Delete" (click)="deleteTodo(todo)"></i>
+                                    </div>
+                                </div>
+                            </mat-menu>
                         </div>
                     </div>
                     <!-- Card New Item Add Section Start-->
-                    <div>
-                        <i class="bi bi-plus-lg m-1" (click)="singleTaskAddToggle(todo)"></i>
+                    <div style="padding-top: 10px;" class="Plus">
+                        <i class="bi bi-plus-lg m-1 " (click)="singleTaskAddToggle(todo)"></i>
                         <span *ngIf="todo.isInput">
                             <input type="checkbox" [(ngModel)]="taskDetails.isCompleted">
                             <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
-                                placeholder=" New List item" *ngIf="taskEditBtnToggle" (keyup.enter)="addTask(todo.id)">
+                                placeholder=" New List item" *ngIf="isTaskEditBtnToggle">
                             <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
-                                placeholder=" New List item" *ngIf="!taskEditBtnToggle" (keyup.enter)="singalEditTask(todo.id)">
+                                placeholder=" New List item" *ngIf="!isTaskEditBtnToggle"
+                                (keyup.enter)="singalEditTask(todo.id)">
+                            <i class="bi bi-file-earmark-plus-fill" (click)="addTask(todo.id)"></i>
                         </span>
                     </div>
                     <!--Card New Item Add Section End-->
                     <div class="p-4 overflow-auto" style="height: 100px;">
                         <ng-container *ngFor="let task of todo.tasks">
                             <div class="form-check d-flex justify-content-between">
-
-                                
-                                <input class="form-check-input" disabled [checked]="task.isCompleted"
-                                    type="checkbox">
-
-                                <span class="form-check Card-Text fs-5">
+                                <input class="form-check-input" [checked]="task.isCompleted" type="checkbox">
+                                <span class="form-check Card-Text" style="width: 60%;">
                                     <del *ngIf="task.isCompleted">{{task.name}}</del>
                                     <span *ngIf="!task.isCompleted">{{task.name}}</span>
                                 </span>
-    
-                                <i class="bi bi-pencil me-2 " (click)="fillSingleTask(todo,task)"></i> 
-
-                                <i class="bi bi-trash-fill cardDelete me-1 "
-                                    (click)="deleteTask(todo.id,task)"></i>
-
+                                <span>
+                                    <i class="bi bi-pencil-square me-2" style="color:green; font-size: 18px;"
+                                        (click)="fillSingleTask(todo,task)"></i>
+                                    <i class="bi bi-trash-fill cardDelete me-1 " (click)="deleteTask(todo.id,task)"></i>
+                                </span>
                             </div>
                         </ng-container>
                     </div>
-                    <div class="footer mt-5">{{todo.addedon | date}}</div>
+                    <div class="footer mt-5 Date">{{todo.addedon | date}}</div>
                 </div>
             </div>
         </ng-container>

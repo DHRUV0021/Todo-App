@@ -12,22 +12,25 @@ import { Subject } from 'rxjs';
 export class TodosComponent {
 
   // Data Binding
-  todoDetails: Todos;
-  taskDetails: Tasks;
+  todoDetails:Todos;
+  taskDetails:Tasks;
 
   // Data Store
   allTodos: Array<Todos> = new Array<Todos>();
 
   // Toggle Btn
-  updateAddBtn: boolean = false;
-  resetBtn: boolean = false;
-  taskEditBtnToggle: boolean = false;
+  // updateAddBtn: boolean = false;
+  isUpdateAddBtn: boolean = false;
+  // resetBtn: boolean = false;
+  isResetBtn: boolean = false;
+  // taskEditBtnToggle: boolean = false;
+  isTaskEditBtnToggle: boolean = false;
 
   searchValue: string;
+  isLoading: Subject<boolean> = this._crud.isLoading;
 
   constructor(private _crud:CrudsService, private _toastr: ToastrService) { }
 
-  isLoading: Subject<boolean> = this._crud.isLoading;
 
   ngOnInit(): void {
 
@@ -36,39 +39,23 @@ export class TodosComponent {
 
     this.todoDetails.tasks = new Array<Tasks>();
 
-    this.addBlankItem();
+    // this.addBlankItem();
     this.getTodos();
   }
 
-  /**
-   *This method is used dynamic add row 
-   */
-  addBlankItem() {
-    this.todoDetails.tasks.push(new Tasks());
-  }
-
-  /**
-   * This method is used add list item by default one input box 
-   * @param i 
-   */
-  removeBlankitem(i) {
-    if (this.todoDetails.tasks.length != 1) {
-      this.todoDetails.tasks.splice(i, 1);
-    }
-  }
 
   /**
    * This method is used get todo
    */
   getTodos() {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this._crud.getTodos().subscribe({
       next: (res) => {
         this.allTodos = res;
       },
       error: (err) => {
         this._toastr.error(err);
-        this._crud.loaderShow();
+        // this._crud.loaderShow();
       },
       complete: () => {
         this._crud.loaderHide();
@@ -80,18 +67,18 @@ export class TodosComponent {
    *This method is used add todos 
    */
   addTodo() {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     if (this.todoDetails.name) {
       this._crud.addTodo(this.todoDetails).subscribe({
         next: (res) => {
           this.todoDetails = new Todos;
           this.getTodos();
-          this.addBlankItem();
-          this._toastr.success('Added New Todo SuccessFully...');
+          // this.addBlankItem();
+          this._toastr.success('Added New Todo SuccessFully...!');
         },
         error: (err) => {
           this._toastr.error(err);
-          this._crud.loaderShow();
+          // this._crud.loaderShow();
         },
         complete: () => {
           this._crud.loaderHide();
@@ -99,7 +86,7 @@ export class TodosComponent {
       })
     }
     else {
-      this._toastr.warning('plese enter your Todo');
+      this._toastr.warning('Plese Enter Your Todo...?');
     }
   }
 
@@ -108,7 +95,7 @@ export class TodosComponent {
    * @param todoId 
    */
   addTask(todoId) {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this.taskDetails.todoId = todoId;
 
     this._crud.addTask(todoId, this.taskDetails).subscribe({
@@ -118,7 +105,7 @@ export class TodosComponent {
       },
       error: (err) => {
         this._toastr.error(err);
-        this._crud.loaderShow();
+        // this._crud.loaderShow();
       },
       complete: () => {
         this._crud.loaderHide();
@@ -132,25 +119,25 @@ export class TodosComponent {
    */
   fillData(todo: Todos) {
     this.todoDetails = todo;
-    this.updateAddBtn = true;
+    this.isUpdateAddBtn = true;
   }
 
   /**
    * This method is used edit todo 
    */
   editTodo() {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this._crud.editTodo(this.todoDetails).subscribe({
       next: (res) => {
         this.editTask(this.todoDetails.id);
-        this.addBlankItem();
+        // this.addBlankItem();
         this.todoDetails = new Todos;
-        this.updateAddBtn = false;
+        this.isUpdateAddBtn = false;
         this._toastr.success('Todo Update Successfully...');
       },
       error: (err) => {
         this._toastr.error(err);
-        this._crud.loaderShow();
+        // this._crud.loaderShow();
       },
       complete: () => {
         this._crud.loaderHide();
@@ -163,19 +150,19 @@ export class TodosComponent {
    * @param todoId 
    */
   editTask(todoId) {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this.todoDetails.tasks.forEach(task => {
       this._crud.editTask(todoId, task).subscribe({
         next: (res) => {
-          this.updateAddBtn = false;
+          this.isUpdateAddBtn = false;
           this.todoDetails = new Todos;
           this.getTodos();
-          this.addBlankItem();
+          // this.addBlankItem();
           this._toastr.success(' Task Update Successfully...');
         },
         error: (err) => {
           this._toastr.error(err);
-          this._crud.loaderShow();
+          // this._crud.loaderShow();
         },
         complete: () => {
           this._crud.loaderHide();
@@ -189,7 +176,7 @@ export class TodosComponent {
    * @param todo 
    */
   deleteTodo(todo:Todos) {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this._crud.deleteTodo(todo).subscribe({
       next: (res) => {
         this.getTodos();
@@ -197,7 +184,7 @@ export class TodosComponent {
       },
       error: (err) => {
         this._toastr.error(err);
-        this._crud.loaderShow();
+        // this._crud.loaderShow();
       },
       complete: () => {
         this._crud.loaderHide();
@@ -211,7 +198,7 @@ export class TodosComponent {
    * @param task 
    */
   deleteTask(todoId, task) {
-    this._crud.loaderShow();
+    // this._crud.loaderShow();
     this._crud.deleteTask(todoId, task).subscribe({
       next: (res) => {
         this.getTodos();
@@ -219,7 +206,7 @@ export class TodosComponent {
       },
       error: (err) => {
         this._toastr.error(err);
-        this._crud.loaderShow();
+        // this._crud.loaderShow();
       },
       complete: () => {
         this._crud.loaderHide();
@@ -255,9 +242,9 @@ export class TodosComponent {
    */
   reseteditData() {
     this.todoDetails = new Todos;
-    this.resetBtn = true;
-    this.updateAddBtn = false;
-    this.addBlankItem();
+    this.isResetBtn = true;
+    this.isUpdateAddBtn = false;
+    // this.addBlankItem();
   }
 
   /**
@@ -268,15 +255,14 @@ export class TodosComponent {
     if (todo.isInput) {
       todo.isInput = false;
       this.taskDetails = new Tasks;
-      this.taskEditBtnToggle = true;
+      this.isTaskEditBtnToggle = true;
 
     }
     else {
       todo.isInput = true;
-      this.taskEditBtnToggle = true;
+      this.isTaskEditBtnToggle = true;
     }
   }
-
 
   /**
    *  This method is used  task fill task 
@@ -287,13 +273,14 @@ export class TodosComponent {
     this.taskDetails = task;
     if (todo.isInput) {
       todo.isInput = false;
-      this.taskEditBtnToggle = true;
+      this.isTaskEditBtnToggle = true;
     }
     else {
       todo.isInput = true;
-      this.taskEditBtnToggle = false;
+      this.isTaskEditBtnToggle = false;
     }
   }
+
   /**
    * This method is used  singal edit task 
    * @param todoId 
@@ -303,7 +290,7 @@ export class TodosComponent {
     this._crud.editTask(todoId, this.taskDetails).subscribe({
       next: (res) => {
         this.taskDetails = new Tasks;
-        this.taskEditBtnToggle = true;
+        this.isTaskEditBtnToggle = true;
       },
       error: (err) => {
         this._toastr.error(err);
@@ -311,8 +298,4 @@ export class TodosComponent {
     })
   }
 
-
-
-
-
-}
+};

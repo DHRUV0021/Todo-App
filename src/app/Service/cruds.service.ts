@@ -14,9 +14,9 @@ export class CrudsService {
   constructor(private _http: HttpClient) { }
 
   // Loader Show
-  loaderShow() {
-    this.isLoading.next(true);
-  }
+  // loaderShow() {
+  //   this.isLoading.next(true);
+  // }
 
   // Loader Hide
   loaderHide() {

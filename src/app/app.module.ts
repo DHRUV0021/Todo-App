@@ -8,6 +8,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodosComponent } from './todos-app/todos-app.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -21,7 +27,14 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatListModule,
+    MatCardModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

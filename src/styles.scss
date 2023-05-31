@@ -5,31 +5,6 @@
 }
 
 
-
-
-//==================Header
-.Head {
-    display: flex;
-    justify-content: space-around;
-}
-
-.glogo {
-    width: 10rem;
-}
-
-
-.Search-task {
-    margin-top: 30px;
-    width: 22vw !important;
-    height: 4.8vh !important;
-    border: none;
-    outline: none;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 17px;
-    font-weight: 600;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-}
-
 //==================INPUT PART
 .collapse {
     display: flex;
@@ -55,18 +30,37 @@
 //==================CARD
 .card {
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    background-color: #fff;
+}
+
+.card-header {
+    color: black;
+    background-color: rgb(162 177 225 / 30%);
+    margin-bottom: 0;
+    width: 100.2%;
+    padding: 0.2rem 0.2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
 .Card-Text {
     width: 100%;
+    font-size: 18px;
+    padding: 0;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .Task-Indax {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Arial Nova;
     font-weight: 300;
-    color: rgb(92, 92, 92);
+    padding: 10px;
+    color: black;
 }
+
+.Plus i {
+    color: black;
+    font-size: 20px;
+}
+
 .taskBody {
     width: 35%;
 }
@@ -84,7 +78,7 @@
 .Edit {
     color: green;
     font-size: 22px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .Edit:hover {
@@ -94,25 +88,112 @@
 .Delete {
     color: red;
     font-size: 22px;
+    padding: 5px;
 }
 
 .Delete:hover {
     color: rgb(245, 156, 156);
 }
 
+.example-card {
+    max-width: 400px;
+}
+
+.Date {
+    font-family: MoolBoran;
+    padding-left: 10px;
+}
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+    min-width: 2vw !important;
+    max-width: 277px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+/*---------- for Loader css -----------*/
+.overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(74, 74, 74, .8);
+    z-index: 99999;
+  }
+  
+  .spinner {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    z-index: 99999;
+  }
 
 
+//============ search Box Css
+.search-box {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
 
+.input-search {
+    height: 50px;
+    width: 50px;
+    border-style: none;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    border-radius: 25px;
+    transition: all .5s ease-in-out;
+    padding-right: 40px;
+}
+
+.input-search::placeholder {
+    color: rgba(255, 255, 255, .5);
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 100;
+}
+
+.btn-search {
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    color: #ffffff;
+    background-color: transparent;
+    pointer-events: painted;
+}
+
+.btn-search:focus~.input-search {
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, .5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+.input-search:focus {
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, .5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
 
 //================== 1400
 @media screen and (max-width: 1400px) {
-    .glogo {
-        width: 8rem;
-    }
-
-    .Search-task {
-        width: 40vw !important;
-    }
 
     .test {
         margin-top: 38px !important;
@@ -125,13 +206,6 @@
 
 //================== 1200
 @media screen and (max-width: 1200px) {
-    .glogo {
-        width: 8rem;
-    }
-
-    .Search-task {
-        width: 40vw !important;
-    }
 
     .test {
         margin-top: 38px !important;
@@ -143,10 +217,6 @@
 
 //================== 760
 @media screen and (max-width: 760px) {
-    .glogo {
-        width: 8rem;
-    }
-
 
     .test {
         margin-top: 38px !important;
@@ -169,9 +239,6 @@
 
 //================== 520
 @media screen and (max-width: 520px) {
-    .glogo {
-        width: 7rem;
-    }
 
     .test {
         margin-top: 38px !important;
@@ -192,7 +259,6 @@
 
 //================== 425
 @media screen and (max-width: 425px) {
-
     .test {
         margin-top: 38px !important;
         width: 100% !important;
@@ -206,26 +272,18 @@
         width: 90vw !important;
     }
 
+    .input-search {
+        width: 20px;
+    }
+
 }
-
-
 
 //================== 479
 @media screen and (max-width: 479px) {
-
-    .glogo {
-        width: 5rem;
-    }
-
-    .Search-task {
-        width: 50vw !important;
-    }
-
     .test {
         margin-top: 38px !important;
         width: 40vw !important;
         height: 30px !important;
-        // background-color: green;
     }
 
     .ADD-TASK i {
@@ -240,6 +298,8 @@
         width: 90vw !important;
     }
 
+    .input-search {
+        width: 20px;
+    }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
