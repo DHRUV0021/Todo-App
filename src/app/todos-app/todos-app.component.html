@@ -14,7 +14,7 @@
     <span class="example-spacer"></span>
 
     <div class="search-box">
-        <button class="btn-search"> <i class="bi bi-search" style="color: black;"></i></button>
+        <button class="btn-search"> <i class="bi bi-search" style="color: rgb(0, 0, 0);"></i></button>
         <input type="text" class="input-search" style="color: rgb(255, 255, 255);" placeholder="Type to Search..."
             (keyup)="typeSearchData()" [(ngModel)]="searchValue">
     </div>
@@ -37,7 +37,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item ">
                                 <input type="text" class="form-control mb-1 " id="floatingInput" placeholder="Todo"
-                                    [(ngModel)]="todoDetails.name">
+                                    [(ngModel)]="Todo.name">
                             </li>
                             <li class="list-group-item" (click)="isUpdateAddBtn === false ? addTodo() : editTodo()">
                                 <i *ngIf="!isUpdateAddBtn" class="bi bi-arrow-right-square-fill fs-2"></i>
@@ -80,10 +80,10 @@
                     <div style="padding-top: 10px;" class="Plus">
                         <i class="bi bi-plus-lg m-1 " (click)="singleTaskAddToggle(todo)"></i>
                         <span *ngIf="todo.isInput">
-                            <input type="checkbox" [(ngModel)]="taskDetails.isCompleted">
-                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
+                            <input type="checkbox" [(ngModel)]="Task.isCompleted">
+                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="Task.name"
                                 placeholder=" New List item" *ngIf="isTaskEditBtnToggle">
-                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="taskDetails.name"
+                            <input type="text" class=" ps-2 itemAddBtn" [(ngModel)]="Task.name"
                                 placeholder=" New List item" *ngIf="!isTaskEditBtnToggle"
                                 (keyup.enter)="singalEditTask(todo.id)">
                             <i class="bi bi-file-earmark-plus-fill" (click)="addTask(todo.id)"></i>
@@ -92,17 +92,25 @@
                     <!--Card New Item Add Section End-->
                     <div class="p-4 overflow-auto" style="height: 100px;">
                         <ng-container *ngFor="let task of todo.tasks">
-                            <div class="form-check d-flex justify-content-between">
-                                <input class="form-check-input" [checked]="task.isCompleted" type="checkbox">
-                                <span class="form-check Card-Text" style="width: 60%;">
-                                    <del *ngIf="task.isCompleted">{{task.name}}</del>
-                                    <span *ngIf="!task.isCompleted">{{task.name}}</span>
-                                </span>
-                                <span>
+                            <div class="form-check d-flex  list-item">
+                                <input type="checkbox" class="form-check-input" [(ngModel)]="task.isCompleted"
+                                    [checked]="task.isCompleted" (change)="isTaskCompleted(todo.id,task)">
+                                <input type="text" class="InputTask" *ngIf="!task.isTaskInput" [value]="task.name"
+                                    [disabled]="!task.isTaskInput">
+                                <input type="text" class="InputTasks" *ngIf="task.isTaskInput"
+                                    [(ngModel)]="editTasks.name" [value]="task.name">
+
+                                <div class="show-div">
+                                    <i class="bi bi-reply me-2" style="color:orangered; font-size: 18px;"
+                                        *ngIf="task.isTaskInput" (click)="editCancel(task)"></i>
+                                    <i class="bi bi-file-earmark-check-fill me-2"
+                                        style="color:skyblue; font-size: 18px;" *ngIf="task.isTaskInput"
+                                        (click)="editTask(todo.id)"></i>
                                     <i class="bi bi-pencil-square me-2" style="color:green; font-size: 18px;"
-                                        (click)="fillSingleTask(todo,task)"></i>
-                                    <i class="bi bi-trash-fill cardDelete me-1 " (click)="deleteTask(todo.id,task)"></i>
-                                </span>
+                                        (click)="fillSingleTask(task)" *ngIf="!task.isTaskInput"></i>
+                                    <i class="bi bi-trash-fill cardDelete me-1 " (click)="deleteTask(todo.id,task)"
+                                        *ngIf="!task.isTaskInput"></i>
+                                </div>
                             </div>
                         </ng-container>
                     </div>

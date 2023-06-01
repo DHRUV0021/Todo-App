@@ -14,9 +14,9 @@ export class CrudsService {
   constructor(private _http: HttpClient) { }
 
   // Loader Show
-  // loaderShow() {
-  //   this.isLoading.next(true);
-  // }
+  loaderShow() {
+    this.isLoading.next(true);
+  }
 
   // Loader Hide
   loaderHide() {
@@ -72,6 +72,9 @@ export class Todos {
 export class Tasks {
   id: number;
   todoId: number;
-  isCompleted: boolean = false;
+  isCompleted: boolean;
   name: string;
+
+  // Ui Specificy
+  isTaskInput: boolean;
 }

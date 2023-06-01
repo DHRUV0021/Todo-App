@@ -42,12 +42,12 @@
     border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
-.Card-Text {
-    width: 100%;
-    font-size: 18px;
-    padding: 0;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
+// .Card-Text {
+//     width: 100%;
+//     font-size: 18px;
+//     padding: 0;
+//     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+// }
 
 .Task-Indax {
     font-family: Arial Nova;
@@ -59,6 +59,16 @@
 .Plus i {
     color: black;
     font-size: 20px;
+}
+
+// div hover css
+.show-div {
+    display: none !important;
+}
+
+.list-item:hover .show-div {
+    display: inline !important;
+
 }
 
 .taskBody {
@@ -95,9 +105,9 @@
     color: rgb(245, 156, 156);
 }
 
-.example-card {
-    max-width: 400px;
-}
+// .example-card {
+//     max-width: 400px;
+// }
 
 .Date {
     font-family: MoolBoran;
@@ -112,6 +122,17 @@
     position: relative;
 }
 
+.InputTask {
+    background-color: #ffffff;
+    border: none;
+}
+
+.InputTasks {
+    background-color: #ffffff;
+    border: none;
+    margin: 0px;
+}
+
 /*---------- for Loader css -----------*/
 .overlay {
     position: fixed;
@@ -122,15 +143,15 @@
     left: 0;
     background-color: rgba(74, 74, 74, .8);
     z-index: 99999;
-  }
-  
-  .spinner {
+}
+
+.spinner {
     position: absolute;
     top: 0;
     display: block;
     width: 100%;
     z-index: 99999;
-  }
+}
 
 
 //============ search Box Css
@@ -201,9 +222,6 @@
     }
 }
 
-
-
-
 //================== 1200
 @media screen and (max-width: 1200px) {
 
@@ -212,8 +230,6 @@
         width: 40vw !important;
     }
 }
-
-
 
 //================== 760
 @media screen and (max-width: 760px) {
@@ -233,10 +249,6 @@
 
 }
 
-
-
-
-
 //================== 520
 @media screen and (max-width: 520px) {
 
@@ -254,8 +266,6 @@
     }
 
 }
-
-
 
 //================== 425
 @media screen and (max-width: 425px) {
@@ -302,4 +312,3 @@
         width: 20px;
     }
 }
-
