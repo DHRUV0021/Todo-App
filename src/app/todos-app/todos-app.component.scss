@@ -1,13 +1,264 @@
-.cardDelete{
-    font-size: 18px;
-    color: red;
+::-webkit-scrollbar {
+  width: 0%;
 }
 
+
+/*---------- for Loader css -----------*/
+.overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(74, 74, 74, .8);
+  z-index: 99999;
+}
+
+.spinner {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  z-index: 99999;
+}
+
+
+/*----------- Toolbar ----------*/
 .example-spacer {
   flex: 1 1 auto;
 }
 
 
 
+/*---------- Search-Bar ----------*/
+.search-box {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.input-search {
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  padding-right: 40px;
+}
+
+.input-search::placeholder {
+  color: rgba(255, 255, 255, .5);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+.btn-search {
+  width: 50px;
+  height: 50px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  color: #ffffff;
+  background-color: transparent;
+  pointer-events: painted;
+}
+
+.btn-search:focus~.input-search {
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+.input-search:focus {
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+/*---------- Add-Todo ----------*/
+.taskUpperHeader {
+  width: 35%;
+  border: none;
+  outline: none;
+  color: rgb(77, 71, 71);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.header {
+  text-decoration: none;
+  padding: 8px;
+}
+
+.taskBody {
+  width: 35%;
+}
+
+// Expansion panel add Todo
+
+.container {
+  margin-top: 20px;
+}
+
+.mat-mdc-form-field+.mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.enterTodo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.addInput {
+  width: 80%;
+}
 
 
+//==================CARD
+.example-card {
+  max-width: 400px;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  background-color: #fff;
+}
+
+.card-header {
+  color: black;
+  background-color: rgba(176, 201, 233, 0.505);
+  margin-bottom: 0;
+  width: 100.2%;
+  padding: 0.2rem 0.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.InputTodo {
+  border: none;
+  font-size: 20px;
+  height: 50px;
+  align-items: center;
+  background: transparent;
+}
+
+.InputTodos {
+  width: 13rem;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  height: 50px;
+  font-size: 20px;
+}
+
+.Replay {
+  color: orangered;
+  font-size: 20px;
+}
+
+.save {
+  color: rgb(44, 73, 170);
+  font-size: 20px;
+}
+
+.Edit {
+  color: green;
+  font-size: 22px;
+  padding: 5px;
+}
+
+.Edit:hover {
+  color: rgb(164, 206, 164);
+}
+
+.Delete {
+  color: red;
+  font-size: 22px;
+  padding: 5px;
+}
+
+.Delete:hover {
+  color: rgb(245, 156, 156);
+}
+
+//=============Add item
+.Plus i {
+  color: black;
+  font-size: 20px;
+}
+
+.itemAddBtn {
+  border: none;
+  outline: none;
+}
+
+
+.InputTask {
+  background-color: #ffffff;
+  border: none;
+}
+
+.InputTasks {
+  background-color: #ffffff;
+  border: none;
+  margin: 0px;
+}
+
+//============= div hover css
+.show-div {
+  display: none !important;
+}
+
+.list-item:hover .show-div {
+  display: inline !important;
+
+}
+
+.editCancel {
+  color: orangered;
+  font-size: 18px;
+}
+
+.editItem {
+  color: green;
+  font-size: 18px;
+}
+
+
+.Date {
+  font-family: MoolBoran;
+  padding-left: 10px;
+}
+
+.Date {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+
+.cardDelete {
+  font-size: 18px;
+  color: red;
+}
+
+// td {
+//   padding-right: 8px;
+// }

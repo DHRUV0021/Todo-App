@@ -14,6 +14,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {MatCardModule} from '@angular/material/card';
     MatToolbarModule,
     MatMenuModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatInputModule,
+    MatExpansionModule
 
   ],
   providers: [],

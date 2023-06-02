@@ -15,23 +15,26 @@ export class TodosComponent {
   Todo: Todos;
   Task: Tasks;
   editTasks: Tasks;
+  editTodo: Todos;
 
   // Data Store
   allTodos: Array<Todos> = new Array<Todos>();
 
   // Toggle Btn
-  isUpdateAddBtn: boolean = false;
+  panelOpenState = false;
   isResetBtn: boolean = false;
+  isTodoEditBtnToggle: boolean = false;
   isTaskEditBtnToggle: boolean = false;
 
   searchValue: string;
   isLoading: Subject<boolean> = this._crud.isLoading;
+  isTodoInput: boolean = false;
 
   constructor(private _crud: CrudsService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-
     this.Todo = new Todos;
+    this.editTodo = new Todos;
     this.Task = new Tasks;
     this.editTasks = new Tasks;
     this.Todo.tasks = new Array<Tasks>();
@@ -110,21 +113,43 @@ export class TodosComponent {
    * This method is used todo Fill  
    * @param todo 
    */
-  fillData(todo: Todos) {
-    this.Todo = todo;
-    this.isUpdateAddBtn = true;
+  editData(todo: Todos) {
+    this.allTodos.forEach((todo) => {
+      todo.isInput = false;
+      todo.isTodoInput = false;
+
+      todo.tasks.forEach((task)=>{
+        task.isTaskInput = false;
+      })
+    });
+    
+    this.editTodo = todo;
+    if (todo.isTodoInput) {
+      todo.isTodoInput = false;
+    }
+    else {
+      todo.isTodoInput = true;
+    }
+  }
+
+  /**
+   * this method is used todos edit data reset
+   * @param todo 
+   */
+  todoEditCancle(Todo) {
+    this.Todo = new Todos;
+    Todo.isTodoInput = false;
   }
 
   /**
    * This method is used edit todo 
    */
-  editTodo() {
+  updateTodo(todo) {
     this._crud.loaderShow();
-    this._crud.editTodo(this.Todo).subscribe({
+    this._crud.editTodo(todo.id,this.editTodo).subscribe({
       next: (res) => {
-        this.editTask(this.Todo.id);
         this.Todo = new Todos;
-        this.isUpdateAddBtn = false;
+        todo.isTodoInput = false;
         this._toastr.success('Todo Update Successfully...');
       },
       error: (err) => {
@@ -141,11 +166,10 @@ export class TodosComponent {
    * This method is used edit todo task 
    * @param todoId 
    */
-  editTask(todoId) {
+  updateTask(todoId) {
     this._crud.loaderShow();
     this._crud.editTask(todoId, this.editTasks).subscribe({
       next: (res) => {
-        this.isUpdateAddBtn = false;
         this.Todo = new Todos;
         this.fetchTodos();
         this._toastr.success(' Task Update Successfully...');
@@ -232,7 +256,6 @@ export class TodosComponent {
   reseteditData() {
     this.Todo = new Todos;
     this.isResetBtn = true;
-    this.isUpdateAddBtn = false;
   }
 
   /**
@@ -240,11 +263,18 @@ export class TodosComponent {
    * @param todo 
    */
   singleTaskAddToggle(todo) {
+    this.allTodos.forEach((todo) => {
+      todo.isInput = false;
+      todo.isTodoInput = false;
+
+      todo.tasks.forEach((task)=>{
+        task.isTaskInput = false;
+      })
+    });
     if (todo.isInput) {
       todo.isInput = false;
       this.Task = new Tasks;
       this.isTaskEditBtnToggle = true;
-
     }
     else {
       todo.isInput = true;
@@ -257,7 +287,15 @@ export class TodosComponent {
    * @param todo 
    * @param task 
    */
-  fillSingleTask(task) {
+  editSingleTask(task) {
+    this.allTodos.forEach((todo) => {
+      todo.isInput = false;
+      todo.isTodoInput = false;
+
+      todo.tasks.forEach((task)=>{
+        task.isTaskInput = false;
+      })
+    });
     this.editTasks = task;
     if (task.isTaskInput) {
       task.isTaskInput = false;
@@ -267,16 +305,24 @@ export class TodosComponent {
     }
   }
 
+  /**
+   * 
+   * @param task this method use task edit cancle
+   */
   editCancel(task) {
     this.editTasks = new Tasks;
     task.isTaskInput = false;
   }
 
+  /**
+   * this method is used checkBox Complete 
+   * @param todoId 
+   * @param task 
+   */
   isTaskCompleted(todoId, task) {
     this._crud.loaderShow();
     this._crud.editTask(todoId, task).subscribe({
       next: (res) => {
-        this.isUpdateAddBtn = false;
         this.isTaskEditBtnToggle = false;
         this.Todo = new Todos;
         this.Task = new Tasks;
@@ -308,5 +354,4 @@ export class TodosComponent {
       }
     })
   }
-
 };

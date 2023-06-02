@@ -40,8 +40,8 @@ export class CrudsService {
 
 
   //=================EDIT DATA METHOD
-  editTodo(todo: Todos) {
-    return this._http.put(`${this.todoApi}/${todo.id}`, todo);
+  editTodo(todoId,todo: Todos) {
+    return this._http.put(`${this.todoApi}/${todoId}`, todo);
   }
   //=================EDIT DATA METHOD API
   editTask(todoId, task) {
@@ -68,6 +68,8 @@ export class Todos {
 
   // Ui new Item Add True False
   isInput: boolean = false;
+
+  isTodoInput: boolean;
 }
 export class Tasks {
   id: number;
