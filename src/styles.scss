@@ -1,20 +1,35 @@
 @import 'ngx-toastr/toastr';
 
 
+.example-h2 {
+    margin: 10px;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}
+
 .mat-mdc-menu-panel.mat-mdc-menu-panel {
     min-width: 2vw !important;
     max-width: 277px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
-  }
-  
-  
+}
+
+
 ::ng-deep .mat-mdc-form-field-subscript-wrapper {
     box-sizing: border-box;
     width: 85%;
-    position: absolute!important;
-  }
+    position: absolute !important;
+}
 
 //================== 1400
 @media screen and (max-width: 1400px) {
@@ -23,6 +38,7 @@
         margin-top: 38px !important;
         width: 40vw !important;
     }
+
 }
 
 //================== 1200
@@ -68,6 +84,7 @@
         width: 90vw !important;
     }
 
+
 }
 
 //================== 425
@@ -88,7 +105,9 @@
     .input-search {
         width: 20px;
     }
-
+    .taskSave{
+        width: -webkit-fill-available  !important;
+      }
 }
 
 //================== 479
@@ -114,4 +133,8 @@
     .input-search {
         width: 20px;
     }
+
+    .taskSave{
+        width: -webkit-fill-available !important;
+      }
 }

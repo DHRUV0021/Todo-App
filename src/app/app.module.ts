@@ -16,7 +16,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatListModule,
     MatCardModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
 
   ],
   providers: [],

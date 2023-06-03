@@ -1,49 +1,54 @@
 <!-- ======================================= LOADER =================================== -->
 <div *ngIf="isLoading | async" class="overlay">
-    <mat-progress-bar mode="indeterminate" class="spinner" color="accent"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" class="spinner" color="accent"></mat-progress-bar>
 </div>
 
 <!-- ==================================== HEADER SEARCH BOX ================================== -->
 <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Todo</span>
-    <span class="example-spacer"></span>
+  <button mat-icon-button aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Todo</span>
+  <span class="example-spacer"></span>
 
-    <div class="search-box">
-        <button class="btn-search"> <i class="bi bi-search" style="color: rgb(0, 0, 0);"></i></button>
-        <input type="text" class="input-search" style="color: rgb(255, 255, 255);" placeholder="Type to Search..."
-            (keyup)="typeSearchData()" [(ngModel)]="searchValue">
-    </div>
+  <div class="search-box">
+    <button class="btn-search"> <i class="bi bi-search" style="color: rgb(0, 0, 0);"></i></button>
+    <input type="text" class="input-search" style="color: rgb(255, 255, 255);" placeholder="Type to Search..."
+      (keyup)="typeSearchData()" [(ngModel)]="searchValue">
+  </div>
 </mat-toolbar>
 
 <!-- ===================================== INPUT SECTION ===================================== -->
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title (click)="reseteditData()">
-                            Add todo
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="enterTodo">
-                        <mat-form-field appearance="outline" class="addInput">
-                            <mat-label>Todo</mat-label>
-                            <input matInput placeholder="Enter Your Todo" [(ngModel)]="Todo.name">
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" (click)="addTodo()">Add</button>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
+<div class="container addTodo">
+  <div class="row">
+    <div class="col-xxl-12 col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12 ">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title (click)="reseteditData()">
+              Add todo
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="enterTodo">
+            <mat-form-field appearance="outline" class="addInput">
+              <mat-label>Todo</mat-label>
+              <input matInput placeholder="Enter Your Todo" [(ngModel)]="Todo.name">
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="m-2" (click)="addTodo()">Add</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
+  </div>
 </div>
 
-<!-- =================================== CARD SECTION ===================================== -->
 
+
+
+
+
+<!-- =================================== CARD SECTION ===================================== -->
+<!--
 <section class="container overflow-auto  mt-5" style="height: 600px;">
     <div class="row">
         <ng-container *ngFor="let todo of allTodos">
@@ -55,7 +60,7 @@
                                 [disabled]="!todo.isTodoInput">
                             <input type="text" class="InputTodos" *ngIf="todo.isTodoInput" [(ngModel)]="editTodo.name">
                         </div>
-                        <!-- Card Replay & save  -->
+                        Card Replay & save 
                         <div class="d-flex">
                             <i class="bi bi-reply me-3 mt-2  Replay" *ngIf="todo.isTodoInput"
                                 (click)="todoEditCancle(todo)"></i>
@@ -63,7 +68,7 @@
                                 (click)="updateTodo(todo)"></i>
                             <div>
                             </div>
-                            <!-- Card Edit & Delete  -->
+                            Card Edit & Delete 
                             <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="!todo.isTodoInput">
                                 <mat-icon>more_vert</mat-icon>
                             </button>
@@ -77,7 +82,7 @@
                             </mat-menu>
                         </div>
                     </div>
-                    <!-- Card New Task Add Start-->
+                    Card New Task Add Start
                     <div style="padding-top: 10px;" class="Plus">
                         <i class="bi bi-plus-lg m-1 " (click)="singleTaskAddToggle(todo)"></i>
                         <span *ngIf="todo.isInput">
@@ -90,20 +95,20 @@
                             <i class="bi bi-file-earmark-plus-fill" (click)="addTask(todo.id)"></i>
                         </span>
                     </div>
-                    <!--Card New Task Add  End-->
+                    Card New Task Add  End
                     <div class="p-4 overflow-auto" style="height: 100px;">
                         <ng-container *ngFor="let task of todo.tasks">
                             <div class="form-check d-flex  list-item">
                                 <input type="checkbox" class="form-check-input" [(ngModel)]="task.isCompleted"
                                     [checked]="task.isCompleted" (change)="isTaskCompleted(todo.id,task)">
 
-                                <!-- Task -->
+                                Task
                                 <input type="text" class="InputTask" *ngIf="!task.isTaskInput" [value]="task.name"
                                     [disabled]="!task.isTaskInput">
                                 <input type="text" class="InputTasks" *ngIf="task.isTaskInput"
                                     [(ngModel)]="editTasks.name" [value]="task.name">
 
-                                <!-- Hover Button -->
+                                Hover Button
                                 <div class="show-div">
                                     <i class="bi bi-reply me-2 editCancel" *ngIf="task.isTaskInput"
                                         (click)="editCancel(task)"></i>
@@ -123,4 +128,134 @@
             </div>
         </ng-container>
     </div>
+</section> -->
+
+
+
+<!-- --------------------------------------------------------------------- -->
+
+<section style="margin:3%;">
+  <div class="container overflow-auto" style="height: 590px;">
+    <div class="row d-flex justify-content-around">
+
+      <!-- All Todo Show Part Start -->
+      <ng-container *ngFor="let todo of allTodos"  >
+        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+          <mat-card>
+            <mat-card-header class="d-flex justify-content-between align-items-center todo-header"
+              style="padding: 0 10px; ">
+
+
+              <mat-card-title>
+                <span *ngIf="!todo.isTodoInput" class="todo-name text-capitalize">{{ todo.name }}</span>
+                <div *ngIf="todo.isTodoInput" class="d-flex">
+                  <input type="text" [(ngModel)]="editTodo.name">
+
+                  <button mat-icon-button color="primary" (click)="updateTodo(todo)" matTooltip="Save Update Todo"
+                    matTooltipPosition="above">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="todoEditCancle(todo)" matTooltip="Cancel Update Todo"
+                    matTooltipPosition="above">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </div>
+              </mat-card-title>
+
+              <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Edit & Delete Todo"
+                matTooltipPosition="above">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-icon-button color="primary" (click)="editData(todo)" matTooltip="Edit Todo Name"
+                  matTooltipPosition="above">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteTodo(todo)" matTooltip="Delete Todo"
+                  matTooltipPosition="above">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-menu>
+            </mat-card-header>
+            <mat-card-header style="padding: 0;">
+              <div class="taskSave">
+
+                <div class="d-flex mt-2  ">
+                  <!-- Add Task Start-->
+
+                  <button mat-icon-button (click)="singleTaskAddToggle(todo)" matTooltip="Add New Task"
+                    matTooltipPosition="above">
+                    <mat-icon>add</mat-icon>
+                  </button>
+
+                  <mat-form-field *ngIf="todo.isInput" appearance="outline" class="task-input" style="width: 100%; ">
+                    <input matInput [(ngModel)]="Task.name" class="task-input text-capitalize" placeholder="Enter Task">
+                  </mat-form-field>
+
+                  <button mat-icon-button *ngIf="todo.isInput" (click)="addTask(todo.id)" 
+                    style="color: rgb(54, 131, 189);" matTooltip="Save Add Task" matTooltipPosition="above">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                  <!-- Add Task End-->
+                </div>
+                <!-- <mat-divider></mat-divider> -->
+              </div>
+
+            </mat-card-header>
+            <mat-card-content style="height: 200px; overflow: scroll;">
+
+
+              <!-- All Task Show Start -->
+              <mat-list role="list" *ngFor="let task of todo.tasks">
+                <mat-list-item role="listitem" class="list-item">
+                  <div class="row d-flex">
+                    <div class="col-xxl-9 col-xl-9 col-lg-9 col-sm-9 col-8">
+                      <div class="d-inline d-flex ">
+                        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="task.isCompleted"
+                          [checked]="task.isCompleted" (change)="isTaskCompleted(todo.id,task)"></mat-checkbox>
+                        <!-- <input type="checkbox"> -->
+                        <input type="text" class="taskInput fs-5" *ngIf="!task.isTaskInput" [value]="task.name"
+                          [disabled]="!task.isTaskInput"
+                          style="width: -webkit-fill-available; background-color: rgb(255, 255, 255);">
+                        <input type="text" class="taskInput fs-5" *ngIf="task.isTaskInput" [(ngModel)]="editTasks.name"
+                          [value]="task.name">
+                        <!-- <input type="text" class="InputTask" *ngIf="!task.isTaskInput" [value]="task.name"
+                            [disabled]="!task.isTaskInput">
+                        <input type="text" class="InputTasks" *ngIf="task.isTaskInput"
+                            [(ngModel)]="editTasks.name" [value]="task.name"> -->
+
+                      </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-3 col-4">
+                      <div class=" show-action-btn show-div">
+
+                        <!-- Single Task Action Button Part -->
+                        <i class="material-icons me-3" *ngIf="task.isTaskInput" (click)="editCancel(task)"
+                          matTooltip="Cancel Update Task" matTooltipPosition="above">reply</i>
+                        <i class="material-icons taskSave" *ngIf="task.isTaskInput" (click)="updateTask(todo.id)"
+                          matTooltip="Update Task" matTooltipPosition="above">save</i>
+
+                        <i class="material-icons taskEdit  me-2 " (click)="editSingleTask(task)" *ngIf="!task.isTaskInput"
+                          matTooltip="Edit Task" matTooltipPosition="above">edit</i>
+                        <i class="material-icons taskDelete" (click)="deleteTask(todo.id,task)"
+                          *ngIf="!task.isTaskInput" matTooltip="Delete Task" matTooltipPosition="above">delete</i>
+                      </div>
+                    </div>
+                  </div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+              </mat-list>
+              <!-- All Task Show End -->
+
+            </mat-card-content>
+            <mat-card-footer>
+              <p class="singleListItemDate ms-3">{{todo.addedon | date}}</p>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+      </ng-container>
+      <!-- All Todo Show Part End -->
+
+    </div>
+  </div>
 </section>

@@ -119,15 +119,18 @@
 .mat-mdc-form-field+.mat-mdc-form-field {
   margin-left: 8px;
 }
+.addTodo{
+ width: 100%;
+}
 
 .enterTodo {
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
 }
 
 .addInput {
-  width: 80%;
+  width: 90%;
 }
 
 
@@ -210,6 +213,10 @@
   outline: none;
 }
 
+.taskSave{
+  position: inherit;
+  width: -webkit-fill-available;
+}
 
 .InputTask {
   background-color: #ffffff;
@@ -262,3 +269,89 @@
 // td {
 //   padding-right: 8px;
 // }
+
+
+// new card ###########################################
+
+
+.singleListItemDate {
+  color: #ABABAB;
+  font-family: 'Castoro Titling', cursive;
+  font-family: 'IBM Plex Serif', serif;
+  font-family: 'K2D', sans-serif;
+  border: none;
+}
+
+.taskEdit {
+  color: #289128;
+}
+
+.taskDelete {
+  color: #f44336;
+}
+
+.taskInput {
+  border: none;
+  outline: none;
+}
+
+.taskReturn {
+  color: #f44336;
+}
+
+.taskSave {
+  color: rgb(82, 172, 208);
+}
+
+.task-input {
+    font-family: 'Castoro Titling', cursive;
+    font-family: 'IBM Plex Serif', serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+.todo-header {
+  background-color: rgb(180 203 233);
+}
+
+.todo-name {
+  font-family: 'Castoro Titling', cursive;
+  font-family: 'IBM Plex Serif', serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  // color: #424242;
+  color: black;
+  // color: white;
+}
+
+// ===================input Css
+// change label color, background & font when focus after change lable position
+::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+  font-size: 16px;
+  color: red;
+  top: 28px !important;
+  position: relative !important;
+  font-weight: 300 !important;
+  background: rgb(255, 209, 123);
+}
+
+// change mat-form-field height
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 35px !important;
+}
+// Change Lable Font Position
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: 26px !important;
+}
+
+// change mat lable position
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: 15px !important;
+  font-size: 15px;
+}
+
+// change mat-form-field inside input with text
+::ng-deep .mat-mdc-input-element {
+  top: -10px !important;
+  position: relative !important;
+}
