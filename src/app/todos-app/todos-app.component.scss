@@ -120,7 +120,8 @@
   margin-left: 8px;
 }
 .addTodo{
- width: 100%;
+//  width: 50%;
+ margin-top: 40px;
 }
 
 .enterTodo {
@@ -311,7 +312,7 @@
 }
 
 .todo-header {
-  background-color: rgb(180 203 233);
+  background-color: rgb(217, 233, 255);
 }
 
 .todo-name {
@@ -320,7 +321,7 @@
   font-family: 'Open Sans', sans-serif;
   font-family: 'Roboto', sans-serif;
   // color: #424242;
-  color: black;
+  color: rgba(25, 58, 204, 0.83);
   // color: white;
 }
 
@@ -348,6 +349,11 @@
 ::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
   top: 15px !important;
   font-size: 15px;
+}
+
+// change mat-form-field height
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 35px !important;
 }
 
 // change mat-form-field inside input with text
