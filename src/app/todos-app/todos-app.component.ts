@@ -63,7 +63,7 @@ export class TodosComponent {
   /**
    *This method is used add todos 
    */
-  addTodo() {
+  addTodo(){
     this._crud.loaderShow();
     if (this.Todo.name) {
       this._crud.addTodo(this.Todo).subscribe({
@@ -87,7 +87,6 @@ export class TodosComponent {
   }
 
  
-
   /**
    * This method is used  task add
    * @param todoId 
