@@ -53,7 +53,7 @@
     <div class="row d-flex justify-content-around">
 
       <!-- All Todo Show Part Start -->
-      <ng-container *ngFor="let todo of allTodos"  >
+      <ng-container *ngFor="let todo of allTodos">
         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
           <mat-card>
             <mat-card-header class="d-flex justify-content-between align-items-center todo-header"
@@ -106,8 +106,8 @@
                     <input matInput [(ngModel)]="Task.name" class="task-input text-capitalize" placeholder="Enter Task">
                   </mat-form-field>
 
-                  <button mat-icon-button *ngIf="todo.isInput" (click)="addTask(todo.id)" 
-                   color="primary" matTooltip="Save Add Task" matTooltipPosition="above">
+                  <button mat-icon-button *ngIf="todo.isInput" (click)="addTask(todo.id)" color="primary"
+                    matTooltip="Save Add Task" matTooltipPosition="above">
                     <mat-icon>save</mat-icon>
                   </button>
                   <!-- Add Task End-->
@@ -133,8 +133,8 @@
                           style="width: -webkit-fill-available; background-color: rgb(255, 255, 255); width: 100%;">
                         <input type="text" class="taskInput fs-5" *ngIf="task.isTaskInput" [(ngModel)]="editTasks.name"
                           [value]="task.name" style="width: 100%;">
-                    
-                        
+
+
 
                       </div>
                     </div>
@@ -147,8 +147,8 @@
                         <i class="material-icons taskSave" *ngIf="task.isTaskInput" (click)="updateTask(todo.id)"
                           matTooltip="Update Task" matTooltipPosition="above">save</i>
 
-                        <i class="material-icons taskEdit  me-2 " (click)="editSingleTask(task)" *ngIf="!task.isTaskInput"
-                          matTooltip="Edit Task" matTooltipPosition="above">edit</i>
+                        <i class="material-icons taskEdit  me-2 " (click)="editSingleTask(task)"
+                          *ngIf="!task.isTaskInput" matTooltip="Edit Task" matTooltipPosition="above">edit</i>
                         <i class="material-icons taskDelete" (click)="deleteTask(todo.id,task)"
                           *ngIf="!task.isTaskInput" matTooltip="Delete Task" matTooltipPosition="above">delete</i>
                       </div>
